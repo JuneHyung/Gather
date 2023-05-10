@@ -6,7 +6,7 @@ const ProjectItem = ({pInfo}) =>{
   }
   
   return (
-    <Link to={`/test/${pInfo.path}`} className="project-item my-3" onClick={handleClick}>{pInfo.name} </Link>
+    <Link to={`${pInfo.path}`} className="project-item my-3" onClick={handleClick}>{pInfo.name} </Link>
   )
 }
 

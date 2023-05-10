@@ -1,9 +1,10 @@
 @import './assets/scss/StartPage.scss';
+@import './assets/scss/SearchMine.scss';
 .App {
   text-align: center;
   background-color: #282c34;
   min-height:100vh;
-
+  
   .app-header{
     display:flex;
     height: 100px;
