@@ -1,7 +1,7 @@
 import { createContext, useEffect, useMemo, useReducer } from "react";
 import Form from "../../components/searchMine/Form";
 import Table from "../../components/searchMine/Table";
-import { CLICK_MINE, CODE, FLAG_CELL, INCREMENT_TIMER, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, START_GAME, plantMine } from "../../api/searchMine/SearchMine";
+import { CLICK_MINE, CODE, FLAG_CELL, INCREMENT_TIMER, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, START_GAME, STOP_GAME, plantMine } from "../../api/searchMine/SearchMine";
 
 export const TableContext = createContext({
   tableData: [],
@@ -38,6 +38,20 @@ const reducer = (state, action) => {
         timer: 0,
         halted: false,
       };
+    case STOP_GAME:
+      return{
+        ...state,
+        data: {
+          row: 0,
+          cell: 0,
+          mine: 0,
+        },
+        openedCount: 0,
+        tableData: [],
+        result: '',
+        timer: 0,
+        halted: true,
+      }
     case OPEN_CELL:{
       const tableData = [...state.tableData];
       tableData.forEach((row, i) => {
@@ -153,7 +167,6 @@ const reducer = (state, action) => {
         tableData,
       };
     }
-
     case INCREMENT_TIMER: {
       return {
         ...state,
@@ -182,12 +195,11 @@ const SearchMine = () => {
   }, [halted]);
   return (
     <TableContext.Provider value={value}>
-      <h1>지뢰찾기</h1>
-
-      <Form />
+      <h1 className="search-mine-title">지뢰찾기</h1>
+      <Form halted={halted}/>
       <div>{timer}</div>
-      <Table></Table>
       <div>{result}</div>
+      <Table></Table>
     </TableContext.Provider>
   );
 };

@@ -10,6 +10,7 @@ export const CODE = {
 };
 
 export const START_GAME = "START_GAME";
+export const STOP_GAME = "STOP_GAME";
 export const OPEN_CELL = "OPEN_CELL";
 export const CLICK_MINE = "CLICK_MINE";
 export const FLAG_CELL = "FLAG_CELL";
