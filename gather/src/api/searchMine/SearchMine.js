@@ -17,6 +17,7 @@ export const FLAG_CELL = "FLAG_CELL";
 export const QUESTION_CELL = "QUESTION_CELL";
 export const NORMALIZE_CELL = "NORMALIZE_CELL";
 export const INCREMENT_TIMER = "INCREMENT_TIMER";
+export const MINE_CELL = "MINE_CELL";
 
 export const getTdClass = (code) => {
   switch (code) {
@@ -40,6 +41,7 @@ export const getTdText = (code) => {
   switch (code) {
     case CODE.MINE:
       return '💥';
+      // return '';
     case CODE.NORMAL:
       return '';
     case CODE.QUESTION:
@@ -49,7 +51,7 @@ export const getTdText = (code) => {
     case CODE.FLAG_MINE:
       return '🚩';
     case CODE.CLICKED_MINE:
-      return 'BOOM';
+      return '💥';
     default:
       return code || '';
   }

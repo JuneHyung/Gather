@@ -1,23 +1,24 @@
 .mine-table{
   border-collapse: collapse;
   margin: 0 auto;
-  // tr{height:20px;}
   td{
-    border:1px solid #666;
+    border:3px inset #666;
+    color:#fff;
     width:30px;
     min-width:30px;
     height:30px;
     min-height:30px;
     text-align: center;
+    font-size:12px;
+    font-weight:900;
   }
 }
+
 .normal-cell{
-  font-size:10px;
-  text-align:center;
   background-color: #444;
-  color:#fff;
 }
-.opened-cell, .normal-cell{
+
+.opened-cell{
   background-color:#ddd;
 }
 .flag-cell{
@@ -26,12 +27,28 @@
 .question-cell{
   background-color:yellow;
 }
+
 .search-mine-title{
   font-size:36px;
   font-weight:900;
   color:#fff;
 }
+.timer-text{
+  font-size:1.3rem;
 
+  color: #fff;
+  font-weight:900;
+}
+.result-message{
+  font-size: 1.1rem;
+  font-weight:900;
+}
+.win-result-message{
+  color:lightcyan;
+}
+.fail-result-message{
+  color:orangered;
+}
 .form-box{
   padding:20px;
 

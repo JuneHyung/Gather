@@ -1,7 +1,7 @@
 import { createContext, useEffect, useMemo, useReducer } from "react";
 import Form from "../../components/searchMine/Form";
 import Table from "../../components/searchMine/Table";
-import { CLICK_MINE, CODE, FLAG_CELL, INCREMENT_TIMER, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, START_GAME, STOP_GAME, plantMine } from "../../api/searchMine/SearchMine";
+import { CLICK_MINE, CODE, FLAG_CELL, INCREMENT_TIMER, MINE_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, START_GAME, STOP_GAME, plantMine } from "../../api/searchMine/SearchMine";
 
 export const TableContext = createContext({
   tableData: [],
@@ -19,6 +19,7 @@ const initialState = {
   timer: 0,
   result: "",
   halted: true,
+  isWin: true,
   openedCount: 0,
 };
 
@@ -36,6 +37,7 @@ const reducer = (state, action) => {
         tableData: plantMine(action.row, action.cell, action.mine),
         result: '',
         timer: 0,
+        isWin: true,
         halted: false,
       };
     case STOP_GAME:
@@ -50,6 +52,7 @@ const reducer = (state, action) => {
         tableData: [],
         result: '',
         timer: 0,
+        isWin: true,
         halted: true,
       }
     case OPEN_CELL:{
@@ -118,8 +121,8 @@ const reducer = (state, action) => {
       // console.log(state.data.row * state.data.cell - state.data.mine, state.openedCount, openedCount);
       if (state.data.row * state.data.cell - state.data.mine === state.openedCount + openedCount) { // 승리
         halted = true;
-        console.log('asdfas')
-        result = `${state.timer}초만에 승리하셨습니다`;
+        // console.log('asdfas')
+        result = `${state.timer}초만에 승리하셨습니다 😉`;
       }
       return {
         ...state,
@@ -135,14 +138,15 @@ const reducer = (state, action) => {
       return {
         ...state,
         tableData,
+        result: '지뢰를 밟아 실패하였습니다! 😥',
         halted: true,
+        isWin: false,
       };
     }
     case FLAG_CELL: {
       const tableData = [...state.tableData];
       tableData[action.row] = [...state.tableData[action.row]];
       tableData[action.row][action.cell] = tableData[action.row][action.cell] === CODE.MINE ? CODE.FLAG_MINE : CODE.FLAG;
-
       return {
         ...state,
         tableData,
@@ -151,11 +155,20 @@ const reducer = (state, action) => {
     case QUESTION_CELL: {
       const tableData = [...state.tableData];
       tableData[action.row] = [...state.tableData[action.row]];
-      tableData[action.row][action.cell] = tableData[action.row][action.cell] === CODE.MINE ? CODE.QUESTION_MINE : CODE.QUESTION;
+      tableData[action.row][action.cell] = (tableData[action.row][action.cell] === CODE.MINE) || (tableData[action.row][action.cell] === CODE.FLAG_MINE)? CODE.QUESTION_MINE : CODE.QUESTION;
       return {
         ...state,
         tableData,
       };
+    }
+    case MINE_CELL: {
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      tableData[action.row][action.cell] = CODE.MINE;
+      return {
+        ...state,
+        tableData
+      }
     }
     case NORMALIZE_CELL: {
       const tableData = [...state.tableData];
@@ -180,7 +193,7 @@ const reducer = (state, action) => {
 
 const SearchMine = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { tableData, timer, result, halted } = state;
+  const { tableData, timer, result, halted, isWin } = state;
   const value = useMemo(() => ({ tableData, halted, dispatch }), [tableData, halted]);
   useEffect(() => {
     let timer;
@@ -193,12 +206,13 @@ const SearchMine = () => {
       clearInterval(timer);
     };
   }, [halted]);
+
   return (
     <TableContext.Provider value={value}>
       <h1 className="search-mine-title">지뢰찾기</h1>
       <Form halted={halted}/>
-      <div>{timer}</div>
-      <div>{result}</div>
+      <p className="timer-text">경과 시간 {timer} 초</p>
+      <p className={ !isWin ? 'fail-result-message result-message' : 'win-result-message result-message'}>{result}</p>
       <Table></Table>
     </TableContext.Provider>
   );

@@ -1,6 +1,6 @@
 import { memo, useCallback, useContext } from "react";
 import { TableContext } from "../../pages/searchMine/SearchMine";
-import { CLICK_MINE, CODE, FLAG_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, getTdClass, getTdText } from "../../api/searchMine/SearchMine";
+import { CLICK_MINE, CODE, FLAG_CELL, MINE_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, getTdClass, getTdText } from "../../api/searchMine/SearchMine";
 
 
 
@@ -27,7 +27,7 @@ const Td = memo(({rowIndex, cellIndex}) =>{
 
   const onRightClickTd = useCallback((e)=>{
     e.preventDefault();
-    if(halted){return;}
+    if(halted){ return; }
     switch(tableData[rowIndex][cellIndex]){
       case CODE.NORMAL:
       case CODE.MINE:
@@ -37,22 +37,17 @@ const Td = memo(({rowIndex, cellIndex}) =>{
       case CODE.FLAG:
         dispatch({type: QUESTION_CELL, row: rowIndex, cell: cellIndex})
         return;
-      case CODE.QUESTION_MINE:
       case CODE.QUESTION:
         dispatch({type: NORMALIZE_CELL, row: rowIndex, cell: cellIndex})
         return;
+      case CODE.QUESTION_MINE:
+        dispatch({type: MINE_CELL, row: rowIndex, cell: cellIndex})
+        return;
       default:return;
     }
-  },[tableData[rowIndex][cellIndex], halted])
+  }, [tableData[rowIndex][cellIndex], halted])
   return (
-    <RealTd onClickTd={onClickTd} onRightClickTd={onRightClickTd} data={tableData[rowIndex][cellIndex]} />
+    <td onClick={onClickTd} onContextMenu={onRightClickTd} className={getTdClass(tableData[rowIndex][cellIndex])}>{getTdText(tableData[rowIndex][cellIndex])}</td>
   )
 })
-
-const RealTd = memo(({onClickTd, onRightClickTd, data})=>{
-  return (
-    <td onClick={onClickTd} onContextMenu={onRightClickTd} className={getTdClass(data)}>{getTdText(data)}</td>
-  )
-})
-
 export default Td;
