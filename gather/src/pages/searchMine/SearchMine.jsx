@@ -1,7 +1,9 @@
 import { createContext, useEffect, useMemo, useReducer } from "react";
 import Form from "../../components/searchMine/Form";
 import Table from "../../components/searchMine/Table";
-import { CLICK_MINE, CODE, FLAG_CELL, INCREMENT_TIMER, MINE_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, START_GAME, STOP_GAME, plantMine } from "../../api/searchMine/SearchMine";
+import { plantMine } from "../../api/searchMine/SearchMine";
+import { CODE, CLICK_MINE, FLAG_CELL, INCREMENT_TIMER, MINE_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, START_GAME, STOP_GAME, MANY_MINE, NO_LESS_ZERO } from "../../api/searchMine/constant";
+
 
 export const TableContext = createContext({
   tableData: [],
@@ -62,9 +64,8 @@ const reducer = (state, action) => {
       });
       const checked = [];
       let openedCount = 0;
-      // console.log(tableData.length, tableData[0].length);
+
       const checkAround = (row, cell) => {
-        // console.log(row, cell);
         if (row < 0 || row >= tableData.length || cell < 0 || cell >= tableData[0].length) {
           return;
         } // 상하좌우 없는칸은 안 열기
@@ -115,13 +116,13 @@ const reducer = (state, action) => {
         }
         tableData[row][cell] = count;
       };
+
       checkAround(action.row, action.cell);
       let halted = false;
       let result = '';
       // console.log(state.data.row * state.data.cell - state.data.mine, state.openedCount, openedCount);
       if (state.data.row * state.data.cell - state.data.mine === state.openedCount + openedCount) { // 승리
         halted = true;
-        // console.log('asdfas')
         result = `${state.timer}초만에 승리하셨습니다 😉`;
       }
       return {
@@ -186,6 +187,28 @@ const reducer = (state, action) => {
         timer: state.timer + 1,
       };
     }
+    case MANY_MINE:{
+      return{
+        ...state,
+        result: '지뢰수가 너무 많습니다!',
+        openedCount: 0,
+        tableData: [],
+        timer: 0,
+        isWin: false,
+        halted: true,
+      }
+    }
+    case NO_LESS_ZERO:{
+      return{
+        ...state,
+        result: '가로, 세로는 3이상, 지뢰수는 0보다 커야합니다.',
+        openedCount: 0,
+        tableData: [],
+        timer: 0,
+        isWin: false,
+        halted: true,
+      }
+    }
     default:
       return state;
   }
@@ -210,7 +233,7 @@ const SearchMine = () => {
   return (
     <TableContext.Provider value={value}>
       <h1 className="search-mine-title">지뢰찾기</h1>
-      <Form halted={halted}/>
+      <Form />
       <p className="timer-text">경과 시간 {timer} 초</p>
       <p className={ !isWin ? 'fail-result-message result-message' : 'win-result-message result-message'}>{result}</p>
       <Table></Table>

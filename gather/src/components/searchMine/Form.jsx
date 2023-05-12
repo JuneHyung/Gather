@@ -1,8 +1,8 @@
 import { memo, useCallback, useContext, useState } from "react";
 import { TableContext } from "../../pages/searchMine/SearchMine";
-import { START_GAME, STOP_GAME } from "../../api/searchMine/SearchMine";
+import { MANY_MINE, NO_LESS_ZERO, START_GAME, STOP_GAME } from "../../api/searchMine/constant";
 
-const Form = memo(({halted}) => {
+const Form = memo(() => {
   const [level, setLevel] = useState("begin");
   const [row, setRow] = useState(10);
   const [cell, setCell] = useState(10);
@@ -19,21 +19,23 @@ const Form = memo(({halted}) => {
     const value = e.target.value < 3 ? 3 : e.target.value > 50 ? 50 : e.target.value;
     setCell(value);
   }, []);
-  const onChangeMine = useCallback(
-    (e) => {
-      const value = e.target.value >= row * cell ? row * cell - 1 : e.target.value;
-      setMine(value);
-    },
-    []
-  );
+  const onChangeMine = useCallback((e) => {
+    const value = e.target.value >= row * cell ? row * cell - 1 : e.target.value;
+    setMine(value);
+  }, [row, cell]);
 
   const onClickBtn = useCallback(() => {
-    dispatch({ type: START_GAME, row, cell, mine });
+    if(mine<=0 || row<3 || cell <3){
+      dispatch({type: NO_LESS_ZERO});
+      console.log(mine)
+    }else if(row*cell < mine){
+      dispatch({type: MANY_MINE});
+    }else{
+      dispatch({ type: START_GAME, row, cell, mine });
+    }
   }, [row, cell, mine]);
 
-  // console.log('levell')
   const switchLevel = useCallback((level) => {
-    // console.log('d?')
     switch (level) {
       case "begin":
         setLevel(level);
@@ -86,9 +88,7 @@ const Form = memo(({halted}) => {
           return (
             <li
               key={`${item.level}${item.name}`}
-              onClick={() => {
-                switchLevel(item.level);
-              }}
+              onClick={() => { switchLevel(item.level); }}
               className={level===item.level ? 'current-item level-item' : 'level-item'}
             >
               {item.name}

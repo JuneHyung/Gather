@@ -1,6 +1,7 @@
 import { memo, useCallback, useContext } from "react";
 import { TableContext } from "../../pages/searchMine/SearchMine";
-import { CLICK_MINE, CODE, FLAG_CELL, MINE_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, getTdClass, getTdText } from "../../api/searchMine/SearchMine";
+import { getTdClass, getTdText } from "../../api/searchMine/SearchMine";
+import { CODE, CLICK_MINE, FLAG_CELL, MINE_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, } from "../../api/searchMine/constant";
 
 
 
@@ -45,6 +46,7 @@ const Td = memo(({rowIndex, cellIndex}) =>{
         return;
       default:return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableData[rowIndex][cellIndex], halted])
   return (
     <td onClick={onClickTd} onContextMenu={onRightClickTd} className={getTdClass(tableData[rowIndex][cellIndex])}>{getTdText(tableData[rowIndex][cellIndex])}</td>
