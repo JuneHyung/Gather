@@ -5,7 +5,8 @@ const { composeWithDevTools } = require('redux-devtools-extension');
 const initialState = {
   confirmed: {
     confirmedTotal: 0,
-    confirmedList: null,
+    confirmedList: [],
+    lastUpdatedTime: '',
   },
   death: {
     deathTotal: 0,

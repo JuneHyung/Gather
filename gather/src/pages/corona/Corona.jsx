@@ -3,65 +3,66 @@ import {useDispatch, useSelector} from 'react-redux';
 import { getConfirmedCountry } from './../../store/actions/corona/confirmed'
 import { useCallback, useEffect } from 'react';
 const Corona = () => {
-  const confirmed = useSelector((state)=> state.confirmed);
+  const {confirmedTotal, confirmedList, lastUpdatedTime} = useSelector((state)=> state.confirmed);
   const dispatch = useDispatch();
-  // const [state, dispatch] = useReducer(reducer, initialState);
-  // const { confirmTotal, deathTotal, recoveredTotal, listItem, lastUpdatedTime, selectedId, isDeathLoading } = state;
-  useCallback(()=>{
+  // useCallback(()=>{
+  //   console.log('dsaf?')
+  //   dispatch(getConfirmedCountry())
+  // },[])
+  const refreshConfirmedList = useCallback(() =>{
     dispatch(getConfirmedCountry())
   },[])
-  const handleClick = () =>{
-    dispatch(getConfirmedCountry());
-  }
-  console.log(confirmed)
   return (
-    <div onClick={handleClick}>test</div>
-    // <body>
-    //   <header class="flex justify-center">
-    //     <h1>코로나 세계 현황판</h1>
-    //   </header>
-    //   <main class="flex">
-    //     <div class="left-panel flex column">
-    //       <div class="total-board">
-    //         <p>Total Confirmed</p>
-    //         <span class="confirmed-total">{confirmTotal}</span>
-    //       </div>
-    //       <div class="country-ranks">
-    //         <p>Confirmed Cases by Country</p>
-    //         <ol class="rank-list" onClick={handleListClick}>
-    //           {listItem.map((item, i) => (
-    //             <li key={i} class="list-item flex align-center">
-    //               <span class="cases">{item.TotalConfirmed.toString()}</span>
-    //               <p class="country">{item.Country}</p>
-    //             </li>
-    //           ))}
-    //         </ol>
-    //       </div>
-    //       <p class="last-updated-time flex justify-center align-center">{lastUpdatedTime}</p>
-    //     </div>
-    //     <div class="right-panel">
-    //       <div class="summary-wrapper flex">
-    //         <div class="deaths-container">
-    //           <h3 class="summary-title">Total Deaths</h3>
-    //           <p class="total deaths">{deathTotal}</p>
-    //           <div class="list-wrapper">
-    //             <ol class="deaths-list"></ol>
-    //           </div>
-    //         </div>
-    //         <div class="recovered-container">
-    //           <h3 class="summary-title">Total Recovered</h3>
-    //           <p class="total recovered">{recoveredTotal}</p>
-    //           <div class="list-wrapper">
-    //             <ol class="recovered-list"></ol>
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <div class="chart-container">
-    //         <canvas id="lineChart" class="corona-chart"></canvas>
-    //       </div>
-    //     </div>
-    //   </main>
-    // </body>
+    <div>
+      <header className="flex justify-center">
+        <h1>코로나 한국 현황판 <span onClick={refreshConfirmedList}>새로고침</span></h1>
+      </header>
+      <main className="flex">
+        <div className="left-panel flex column">
+          <div className="total-board">
+            <p>Total Confirmed</p>
+            <span className="confirmed-total">{confirmedTotal}</span>
+          </div>
+          <div className="country-ranks">
+            <p>Confirmed Cases by Country</p>
+            <ol className="rank-list">
+              {
+              confirmedList.length!==0 
+                ? confirmedList.map((item, i) => (
+                    <li key={i} className="list-item flex align-center">
+                      <span className="cases">{item.deathCnt}</span>
+                      <p className="country">{item.gubun}</p>
+                    </li>
+                  ))
+                : <p> 조회된 데이터가 없습니다.</p>
+              }
+            </ol>
+          </div>
+          <p className="last-updated-time flex justify-center align-center">{lastUpdatedTime}</p>
+        </div>
+        {/* <div className="right-panel">
+          <div className="summary-wrapper flex">
+            <div className="deaths-container">
+              <h3 className="summary-title">Total Deaths</h3>
+              <p className="total deaths">{deathTotal}</p>
+              <div className="list-wrapper">
+                <ol className="deaths-list"></ol>
+              </div>
+            </div>
+            <div className="recovered-container">
+              <h3 className="summary-title">Total Recovered</h3>
+              <p className="total recovered">{recoveredTotal}</p>
+              <div className="list-wrapper">
+                <ol className="recovered-list"></ol>
+              </div>
+            </div>
+          </div>
+          <div className="chart-container">
+            <canvas id="lineChart" className="corona-chart"></canvas>
+          </div>
+        </div> */}
+      </main>
+    </div>
   );
 };
 
