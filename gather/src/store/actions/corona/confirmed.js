@@ -25,7 +25,8 @@ const parseXML = async (xmlData) => {
     }
     result.push(tmp);
   }
-  return result.sort((a,b)=>b.defCnt - a.defCnt);
+  if(result.length!==0) result.sort((a,b)=>b.defCnt - a.defCnt);
+  return result;
 }
 
 export const getConfirmedCountry = () =>{
@@ -33,21 +34,27 @@ export const getConfirmedCountry = () =>{
     const url = process.env.REACT_APP_CORONA_API_URL;
     const apiKey = process.env.REACT_APP_CORONA_API_KEY;
     try{
+      const curHour = dayjs().hour();
+      const std_day = curHour >12 ? dayjs().format('YYYY-MM-DD') : dayjs().subtract(1, 'd').format('YYYY-MM-DD')
       const {data} = await axios.get(url,{
         params:{
           serviceKey: apiKey,
-          std_day: dayjs().format('YYYY-MM-DD')
+          // std_day: dayjs().format('YYYY-MM-DD')
+          std_day
         }
       });
-      const parsedData = await parseXML(data);
-
-      const totalItem = parsedData.filter(el=>el.gubun==='합계')[0];
-      const totalItemIdx = parsedData.indexOf(totalItem);
-      parsedData.splice(totalItemIdx, 1);
       
-      dispatch(fetchConfirmList(parsedData));
-      dispatch(fetchConfirmedTotal(totalItem.defCnt))
-      dispatch(fetchLastUpdatedTime(dayjs().format('YYYY-MM-DD h:mm A')))
+      const parsedData = await parseXML(data);
+      console.log(parsedData)
+      if(parsedData.length!==0){
+        const totalItem = parsedData.filter(el=>el.gubun==='합계')[0];
+        const totalItemIdx = parsedData.indexOf(totalItem);
+        parsedData.splice(totalItemIdx, 1);
+        
+        dispatch(fetchConfirmList(parsedData));
+        dispatch(fetchConfirmedTotal(totalItem.defCnt))
+        dispatch(fetchLastUpdatedTime(dayjs().format('YYYY-MM-DD h:mm A')))
+      }
     }catch(e){
       console.log(e);
       dispatch(clearConfirmedList())

@@ -4,7 +4,7 @@ body {
   width: 100%;
   height: 100%;
   line-height: 1;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
 }
 
 body,
@@ -20,7 +20,7 @@ div {
   font-size: 100%;
   font-weight: 500;
   font: inherit;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
 }
 ol {
   list-style-type: none;
@@ -30,7 +30,7 @@ ol {
 *:after,
 *:before {
   box-sizing: border-box;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
 }
 
 /* util stylesheets */
@@ -83,7 +83,6 @@ header > h1 {
     }
   }
 
-
   .country-ranks {
     margin-top: 1rem;
     background-color: #5b5656;
@@ -111,7 +110,6 @@ header > h1 {
   }
 }
 
-
 .list-item {
   height: 40px;
   border-bottom: solid 1px rgb(155, 155, 155);
@@ -133,6 +131,11 @@ header > h1 {
   font-size: 1.125rem;
   font-weight: 600;
 }
+.std-day {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-left: 1.12rem;
+}
 /* right panel */
 .right-panel {
   margin-left: 1rem;
@@ -142,25 +145,6 @@ header > h1 {
     width: 100%;
     height: 440px;
     text-align: center;
-        
-    .summary-title {
-      padding: 0.5rem 0;
-      font-size: 1.25rem;
-    }
-    .total {
-      font-size: 3rem;
-      font-weight: 600;
-      padding-bottom: 0.5rem;
-    }
-    
-    .list-wrapper {
-      height: 340px;
-      .deaths-list {
-        height: 100%;
-        overflow: hidden;
-        overflow-y: auto;
-      }
-    }
   }
 
   .recovered-container {
@@ -170,43 +154,66 @@ header > h1 {
     text-align: center;
   }
 
+  .deaths-container,
+  .recovered-container {
+    .summary-title {
+      padding: 0.5rem 0;
+      font-size: 1.25rem;
+    }
+    .total {
+      font-size: 3rem;
+      font-weight: 600;
+      padding-bottom: 0.5rem;
+    }
+
+    .list-wrapper {
+      height: 340px;
+      .deaths-list {
+        height: 100%;
+        overflow: hidden;
+        overflow-y: auto;
+      }
+
+      .recovered-list {
+        height: 100%;
+        overflow: hidden;
+        overflow-y: auto;
+      }
+
+      .list-item-b {
+        height: 35px;
+        border-bottom: solid 1px rgb(155, 155, 155);
+        color: #f5eaea;
+        .deaths {
+          padding: 0 0.4rem;
+          font-size: 1.125rem;
+          font-weight: 550;
+          width: 84px;
+          color: white;
+        }
+        .recovered {
+          padding: 0 0.4rem;
+          font-size: 1.125rem;
+          font-weight: 550;
+          width: 84px;
+          // color: #7fcd91;
+        }
+      }
+      .deaths {
+        color: #fff;
+      }
+      .recovered {
+        color: #7fcd91;
+      }
+    }
+  }
+
   /* chart */
   .chart-container {
     margin-top: 1rem;
     height: 356px;
   }
-
 }
-
-.list-item-b {
-  height: 35px;
-  border-bottom: solid 1px rgb(155, 155, 155);
-  color: #f5eaea;
-  .deaths {
-    padding: 0 0.4rem;
-    font-size: 1.125rem;
-    font-weight: 550;
-    width: 84px;
-    color: white;
-  }
-  .recovered {
-    padding: 0 0.4rem;
-    font-size: 1.125rem;
-    font-weight: 550;
-    width: 84px;
-  }
-}
-
-.recovered {
-  color: #7fcd91;
-}
-
-.recovered-list {
-  height: 100%;
-  overflow: hidden;
-  overflow-y: auto;
-}
-
 
 /* spinner */
 .spinner-wrapper {
