@@ -4,6 +4,8 @@ import { getConfirmedCountry } from "./../../store/actions/corona/confirmed";
 import { useCallback } from "react";
 import { getDeathList } from "../../store/actions/corona/death";
 import { getRecoveredList } from "../../store/actions/corona/recovered";
+import CoronaChart from "./CoronaChart";
+
 const Corona = () => {
   const { confirmedTotal, confirmedList, lastUpdatedTime } = useSelector((state) => state.confirmed);
   const { deathTotal, deathList } = useSelector((state) => state.death);
@@ -18,6 +20,8 @@ const Corona = () => {
     dispatch(getDeathList(item.gubun));
     dispatch(getRecoveredList(item.gubun));
   }, [dispatch]);
+
+  
   return (
     <div>
       <header className="flex justify-center">
@@ -91,7 +95,8 @@ const Corona = () => {
             </div>
           </div>
           <div className="chart-container">
-            <canvas id="lineChart" className="corona-chart"></canvas>
+            {/* <canvas id="lineChart" className="corona-chart"></canvas> */}
+            <CoronaChart labels={['test01','test02','test03','test04','test05']} valueList={[1,5,2,9,4]}/>
           </div>
         </div>
       </main>
