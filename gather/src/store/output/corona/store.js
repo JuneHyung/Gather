@@ -11,6 +11,11 @@ const initialState = {
   death: {
     deathTotal: 0,
     deathList: [],
+    chartData: {
+      name:'',
+      labels:[],
+      valueList:[],
+    }
   },
   recovered: {
     recoveredTotal: 0,
@@ -19,7 +24,7 @@ const initialState = {
 }
 
 const firstMiddleware = (store) => (dispatch) => (action) =>{
-  console.log('로깅', action)
+  // console.log('로깅', action)
   // 기능 추가
   dispatch(action)
 };

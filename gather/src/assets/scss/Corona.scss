@@ -199,12 +199,7 @@ header > h1 {
           // color: #7fcd91;
         }
       }
-      .deaths {
-        color: #fff;
-      }
-      .recovered {
-        color: #7fcd91;
-      }
+      
     }
   }
 
@@ -214,7 +209,12 @@ header > h1 {
     height: 356px;
   }
 }
-
+.deaths {
+  color: #fff;
+}
+.recovered {
+  color: #7fcd91;
+}
 /* spinner */
 .spinner-wrapper {
   height: 100%;
@@ -250,4 +250,10 @@ header > h1 {
     height: 72px;
     opacity: 0;
   }
+}
+
+
+.corona-chart-canvas{
+  background-color: #5b5656;
+  color:#fff;
 }

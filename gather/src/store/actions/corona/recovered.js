@@ -65,7 +65,6 @@ const clearRecoveredList = () => {
 }
 
 const fetchRecoveredList = (data) =>{
-  console.log(data)
   return {
     type: FETCH_RECOVERED_LIST,
     data,

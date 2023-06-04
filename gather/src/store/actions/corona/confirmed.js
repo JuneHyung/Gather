@@ -45,7 +45,7 @@ export const getConfirmedCountry = () =>{
       });
       
       const parsedData = await parseXML(data);
-      console.log(parsedData)
+      
       if(parsedData.length!==0){
         const totalItem = parsedData.filter(el=>el.gubun==='합계')[0];
         const totalItemIdx = parsedData.indexOf(totalItem);
@@ -70,7 +70,6 @@ const clearConfirmedList = () => {
 }
 
 const fetchConfirmList = (data) =>{
-  console.log(data)
   return {
     type: FETCH_CONFIRMED_LIST,
     data,

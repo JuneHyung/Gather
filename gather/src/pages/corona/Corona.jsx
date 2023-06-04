@@ -8,7 +8,7 @@ import CoronaChart from "./CoronaChart";
 
 const Corona = () => {
   const { confirmedTotal, confirmedList, lastUpdatedTime } = useSelector((state) => state.confirmed);
-  const { deathTotal, deathList } = useSelector((state) => state.death);
+  const { deathTotal, deathList, chartData } = useSelector((state) => state.death);
   const { recoveredTotal, recoveredList } = useSelector((state) => state.recovered);
   const dispatch = useDispatch();
 
@@ -19,9 +19,8 @@ const Corona = () => {
   const handleDetailItem = useCallback((item) => {
     dispatch(getDeathList(item.gubun));
     dispatch(getRecoveredList(item.gubun));
-  }, [dispatch]);
+  }, [dispatch, ]);
 
-  
   return (
     <div>
       <header className="flex justify-center">
@@ -95,8 +94,7 @@ const Corona = () => {
             </div>
           </div>
           <div className="chart-container">
-            {/* <canvas id="lineChart" className="corona-chart"></canvas> */}
-            <CoronaChart labels={['test01','test02','test03','test04','test05']} valueList={[1,5,2,9,4]}/>
+            <CoronaChart cityName={chartData.name} labels={chartData.labels} valueList={chartData.valueList}/>
           </div>
         </div>
       </main>

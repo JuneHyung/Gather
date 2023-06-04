@@ -15,8 +15,6 @@ const confirmedReducer = (prevState=initialstate, action) => {
       return {...prevState, confirmedTotal: action.data}
     case FETCH_LAST_UPDATEED_TIME:
       return {...prevState, lastUpdatedTime: action.data}
-    case SET_CHART_DATA:
-      return [];
     default: return prevState;
   }
 }

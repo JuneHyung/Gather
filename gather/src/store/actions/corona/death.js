@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { CLEAR_DEATH_LIST, FETCH_DEATH_LIST, FETCH_DEATH_TOTAL} from "../../constant/corona/variable";
+import { SET_CHART_DATA } from '../../constant/corona/variable';
 // import dayjs from 'dayjs';
 
 
@@ -28,6 +29,15 @@ const parseXML = async (xmlData) => {
   return result
 }
 
+const makeChartData = (list) =>{
+  const keys = list.map(el=>el.stdDay);
+  const values = list.map(el=>el.deathCnt);
+  
+  const result = {name: list[0].gubun, labels: keys, valueList: values}
+  return result;
+}
+
+
 export const getDeathList = (gubun) =>{
   return async (dispatch, getState) => {
     const url = process.env.REACT_APP_CORONA_API_URL;
@@ -41,22 +51,15 @@ export const getDeathList = (gubun) =>{
         }
       });
       const parsedData = await parseXML(data);
-
-      // const totalItem = parsedData.filter(el=>el.gubun==='합계')[0];
-      // const totalItemIdx = parsedData.indexOf(totalItem);
-      // parsedData.splice(totalItemIdx, 1);
-      
       dispatch(fetchDeathList(parsedData));
       dispatch(fetchDeathTotal(parsedData[0].defCnt));
-      // dispatch(fetchDeathTotal(totalItem.defCnt))
-      // dispatch(fetchLastUpdatedTime(dayjs().format('YYYY-MM-DD h:mm A')))
+      dispatch(fetchChartData(makeChartData(parsedData)));
     }catch(e){
       console.log(e);
       dispatch(clearDeathList())
     }
   }
 }
-
 
 const clearDeathList = () => {
   return {
@@ -65,7 +68,6 @@ const clearDeathList = () => {
 }
 
 const fetchDeathList = (data) =>{
-  console.log(data)
   return {
     type: FETCH_DEATH_LIST,
     data,
@@ -75,6 +77,13 @@ const fetchDeathList = (data) =>{
 const fetchDeathTotal = (data) =>{
   return {
     type: FETCH_DEATH_TOTAL,
+    data,
+  }
+}
+
+const fetchChartData = (data)=>{
+  return {
+    type: SET_CHART_DATA,
     data,
   }
 }

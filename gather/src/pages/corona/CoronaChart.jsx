@@ -11,6 +11,8 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from "react-chartjs-2";
+ChartJS.defaults.color="#FFF";
+ChartJS.defaults.borderColor="rgba(255,255,255,1)";
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -20,7 +22,7 @@ ChartJS.register(
   Tooltip,
   Legend,
 );
-const CoronaChart = ({labels, valueList}) =>{
+const CoronaChart = ({ cityName, labels, valueList,}) =>{
   const options = {
     responsive: true,
     plugins: {
@@ -29,7 +31,7 @@ const CoronaChart = ({labels, valueList}) =>{
       },
       title: {
         display: true,
-        text: 'Chart.js Line Chart',
+        text: `${cityName} 날짜별 사망 수`,
       },
     },
   }
@@ -38,7 +40,7 @@ const CoronaChart = ({labels, valueList}) =>{
     labels,
     datasets: [
       {
-        label: 'Dataset 1',
+        label: cityName,
         data: valueList,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -46,7 +48,9 @@ const CoronaChart = ({labels, valueList}) =>{
     ],
   };
   return (
-    <Line options={options} data={data}></Line>
+    <div className='corona-chart-canvas'>
+      <Line options={options} data={data} height="300"></Line>
+    </div>
   )
 }
 
