@@ -23,7 +23,7 @@ const Corona = () => {
     <div>
       <header className="flex justify-center">
         <h1>
-          코로나 한국 현황판 <span onClick={refreshConfirmedList}>새로고침</span>
+          코로나 한국 현황판 <span className="refresh-button" onClick={refreshConfirmedList}>새로고침</span>
         </h1>
       </header>
       <main className="flex">
