@@ -16,9 +16,9 @@ const Death = () => {
           ) : deathList.length !== 0 ? (
             deathList.map((item, i) => (
               <li key={i} className="list-item flex align-center">
-                <span className="cases deaths">{item.deathCnt}</span>
-                <p className="country">{item.gubun}</p>
                 <p className="std-day">{item.stdDay}</p>
+                <p className="country">{item.gubun}</p>
+                <span className="cases deaths">{item.deathCnt}</span>
               </li>
             ))
           ) : (

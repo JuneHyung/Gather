@@ -1,6 +1,8 @@
-const Spinner = () =>{
+const Spinner = () => {
   return (
-    <p>로딩중</p>
-  )
-}
+    <div className="spinner-container">
+      <div className="loading-spinner"></div>
+    </div>
+  );
+};
 export default Spinner;

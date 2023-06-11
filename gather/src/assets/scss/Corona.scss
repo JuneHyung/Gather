@@ -92,12 +92,16 @@ header > h1 {
     p {
       text-align: center;
       font-size: 1.25rem;
-      padding: 1.25rem 0 0.75rem 0;
+      padding: 1.05rem 0 0.75rem 0;
     }
     .rank-list {
       height: 540px;
       overflow: hidden;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
   }
   .last-updated-time {
@@ -112,6 +116,8 @@ header > h1 {
 
 .list-item {
   height: 40px;
+  width: 100%;
+
   border-bottom: solid 1px rgb(155, 155, 155);
   color: #f5eaea;
   cursor: pointer;
@@ -134,7 +140,7 @@ header > h1 {
 .std-day {
   font-size: 1.125rem;
   font-weight: 600;
-  margin-left: 1.12rem;
+  margin: 0 1.12rem;
 }
 /* right panel */
 .right-panel {
@@ -169,6 +175,10 @@ header > h1 {
     .list-wrapper {
       height: 340px;
       .deaths-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         height: 100%;
         overflow: hidden;
         overflow-y: auto;
@@ -178,6 +188,10 @@ header > h1 {
         height: 100%;
         overflow: hidden;
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
 
       .list-item-b {
@@ -199,25 +213,24 @@ header > h1 {
           // color: #7fcd91;
         }
       }
-      
     }
   }
 
   /* chart */
   .chart-container {
     margin-top: 1rem;
-    width:100%;
-    height:356px;
+    width: 100%;
+    height: 356px;
 
-    display:flex;
+    display: flex;
     justify-content: center;
-    
-    .corona-chart-canvas{
-      display:flex;
+
+    .corona-chart-canvas {
+      display: flex;
       justify-content: center;
-      flex:1;
+      flex: 1;
       background-color: #5b5656;
-      color:#fff;
+      color: #fff;
     }
   }
 }
@@ -226,4 +239,22 @@ header > h1 {
 }
 .recovered {
   color: #7fcd91;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #383636; /* Black */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+  // position:absolute;
 }

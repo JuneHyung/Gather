@@ -16,9 +16,9 @@ const Recovered = () => {
           ) : recoveredList.length !== 0 ? (
             recoveredList.map((item, i) => (
               <li key={i} className="list-item flex align-center">
-                <span className="cases recovered">{item.isolClearCnt}</span>
-                <p className="country">{item.gubun}</p>
                 <p className="std-day">{item.stdDay}</p>
+                <p className="country">{item.gubun}</p>
+                <span className="cases recovered">{item.isolClearCnt}</span>
               </li>
             ))
           ) : (
