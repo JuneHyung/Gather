@@ -7,19 +7,24 @@ import { getRecoveredList } from "../../store/actions/corona/recovered";
 import CoronaChart from "./CoronaChart";
 
 const Corona = () => {
-  const { confirmedTotal, confirmedList, lastUpdatedTime } = useSelector((state) => state.confirmed);
+  const { confirmedTotal, confirmedList, lastUpdatedTime, confirmedSpinner } = useSelector((state) => state.confirmed);
   const { deathTotal, deathList, chartData } = useSelector((state) => state.death);
   const { recoveredTotal, recoveredList } = useSelector((state) => state.recovered);
   const dispatch = useDispatch();
 
   const refreshConfirmedList = useCallback(() => {
-    dispatch(getConfirmedCountry());
-  }, [dispatch]);
+    if(!confirmedSpinner){
+      dispatch(getConfirmedCountry());
+    }
+  }, [dispatch, confirmedSpinner]);
 
-  const handleDetailItem = useCallback((item) => {
-    dispatch(getDeathList(item.gubun));
-    dispatch(getRecoveredList(item.gubun));
-  }, [dispatch, ]);
+  const handleDetailItem = useCallback(
+    (item) => {
+      dispatch(getDeathList(item.gubun));
+      dispatch(getRecoveredList(item.gubun));
+    },
+    [dispatch]
+  );
 
   return (
     <div>
@@ -37,7 +42,9 @@ const Corona = () => {
           <div className="country-ranks">
             <p>Confirmed Cases by Country</p>
             <ol className="rank-list">
-              {confirmedList.length !== 0 ? (
+              {confirmedSpinner ? (
+                <p>로딩중</p>
+              ) : (confirmedList.length !== 0 ? (
                 confirmedList.map((item, i) => (
                   <li key={i} className="list-item flex align-center" onClick={() => handleDetailItem(item)}>
                     <span className="cases">{item.defCnt}</span>
@@ -46,7 +53,8 @@ const Corona = () => {
                 ))
               ) : (
                 <p> 조회된 데이터가 없습니다.</p>
-              )}
+              ))
+              }
             </ol>
           </div>
           <p className="last-updated-time flex justify-center align-center">{lastUpdatedTime}</p>
@@ -78,7 +86,7 @@ const Corona = () => {
               <p className="total recovered">{recoveredTotal}</p>
               <div className="list-wrapper">
                 <ol className="recovered-list">
-                {recoveredList.length !== 0 ? (
+                  {recoveredList.length !== 0 ? (
                     recoveredList.map((item, i) => (
                       <li key={i} className="list-item flex align-center">
                         <span className="cases recovered">{item.isolClearCnt}</span>
@@ -94,7 +102,7 @@ const Corona = () => {
             </div>
           </div>
           <div className="chart-container">
-            <CoronaChart cityName={chartData.name} labels={chartData.labels} valueList={chartData.valueList}/>
+            {deathList.length === 0 ? <p>먼저 조회 해주세요!</p> : <CoronaChart cityName={chartData.name} labels={chartData.labels} valueList={chartData.valueList} />}
           </div>
         </div>
       </main>

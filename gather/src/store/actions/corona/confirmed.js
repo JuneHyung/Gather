@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CLEAR_CONFIRMED_LIST, FETCH_CONFIRMED_LIST, FETCH_CONFIRMED_TOTAL, FETCH_LAST_UPDATEED_TIME, SET_CHART_DATA } from "../../constant/corona/variable";
+import { CLEAR_CONFIRMED_LIST, FETCH_CONFIRMED_LIST, FETCH_CONFIRMED_SPINNER, FETCH_CONFIRMED_TOTAL, FETCH_LAST_UPDATEED_TIME } from "../../constant/corona/variable";
 import dayjs from 'dayjs';
 
 
@@ -33,9 +33,11 @@ export const getConfirmedCountry = () =>{
   return async (dispatch, getState) => {
     const url = process.env.REACT_APP_CORONA_API_URL;
     const apiKey = process.env.REACT_APP_CORONA_API_KEY;
+    dispatch(fetchConfirmedSpinner(true));
     try{
       const curHour = dayjs().hour();
-      const std_day = curHour >12 ? dayjs().format('YYYY-MM-DD') : dayjs().subtract(1, 'd').format('YYYY-MM-DD')
+      // const std_day = curHour >12 ? dayjs().format('YYYY-MM-DD') : dayjs().subtract(1, 'd').format('YYYY-MM-DD')
+      const std_day = '2023-05-31'
       const {data} = await axios.get(url,{
         params:{
           serviceKey: apiKey,
@@ -58,6 +60,8 @@ export const getConfirmedCountry = () =>{
     }catch(e){
       console.log(e);
       dispatch(clearConfirmedList())
+    }finally{
+      dispatch(fetchConfirmedSpinner(false));
     }
   }
 }
@@ -89,14 +93,9 @@ const fetchLastUpdatedTime = (data) =>{
   }
 }
 
-// const setChartData = (data) => {
-//   return {
-//     type: SET_CHART_DATA,
-//     data,
-//   }
-// }
-
-
-// module.exports= {
-//   getConfirmedCountry,
-// }
+const fetchConfirmedSpinner = (data) =>{
+  return {
+    type: FETCH_CONFIRMED_SPINNER,
+    data,
+  }
+}

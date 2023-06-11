@@ -7,6 +7,7 @@ const initialState = {
     confirmedTotal: 0,
     confirmedList: [],
     lastUpdatedTime: '',
+    confirmedSpinner: false,
   },
   death: {
     deathTotal: 0,

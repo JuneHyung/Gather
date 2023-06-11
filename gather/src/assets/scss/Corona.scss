@@ -206,7 +206,7 @@ header > h1 {
   /* chart */
   .chart-container {
     margin-top: 1rem;
-    height: 356px;
+    max-height: 356px;
   }
 }
 .deaths {
