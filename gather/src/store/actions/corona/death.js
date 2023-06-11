@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CLEAR_DEATH_LIST, FETCH_DEATH_LIST, FETCH_DEATH_TOTAL} from "../../constant/corona/variable";
+import { CLEAR_DEATH_LIST, FETCH_DEATH_LIST, FETCH_DEATH_SPINNER, FETCH_DEATH_TOTAL} from "../../constant/corona/variable";
 import { SET_CHART_DATA } from '../../constant/corona/variable';
 // import dayjs from 'dayjs';
 
@@ -42,6 +42,7 @@ export const getDeathList = (gubun) =>{
   return async (dispatch, getState) => {
     const url = process.env.REACT_APP_CORONA_API_URL;
     const apiKey = process.env.REACT_APP_CORONA_API_KEY;
+    dispatch(fetchDeathSpinner(true));
     try{
       const {data} = await axios.get(url,{
         params:{
@@ -57,6 +58,8 @@ export const getDeathList = (gubun) =>{
     }catch(e){
       console.log(e);
       dispatch(clearDeathList())
+    }finally{
+      dispatch(fetchDeathSpinner(false));
     }
   }
 }
@@ -84,6 +87,13 @@ const fetchDeathTotal = (data) =>{
 const fetchChartData = (data)=>{
   return {
     type: SET_CHART_DATA,
+    data,
+  }
+}
+
+const fetchDeathSpinner = (data)=>{
+  return {
+    type: FETCH_DEATH_SPINNER,
     data,
   }
 }

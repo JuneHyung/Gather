@@ -1,8 +1,9 @@
-const { CLEAR_DEATH_LIST, FETCH_DEATH_LIST, FETCH_DEATH_TOTAL, SET_CHART_DATA } = require("../../constant/corona/variable");
+const { CLEAR_DEATH_LIST, FETCH_DEATH_LIST, FETCH_DEATH_TOTAL, SET_CHART_DATA, FETCH_DEATH_SPINNER } = require("../../constant/corona/variable");
 
 const initialstate = {
   deathTotal: 0,
   deathList: [],
+  deathSpinner: false,
   chartLabels:[],
   chartValues:[],
   chartData: {
@@ -21,6 +22,8 @@ const deathReducer = (prevState = initialstate, action) => {
       return {...prevState, deathTotal: action.data};
     case SET_CHART_DATA:
         return {...prevState, chartData: {name: action.data.name, labels: action.data.labels, valueList: action.data.valueList}};
+    case FETCH_DEATH_SPINNER:
+        return {...prevState, deathSpinner: action.data};
     default:
       return prevState;
   }

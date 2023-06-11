@@ -12,6 +12,7 @@ const initialState = {
   death: {
     deathTotal: 0,
     deathList: [],
+    deathSpinner: false,
     chartData: {
       name:'',
       labels:[],
@@ -20,6 +21,7 @@ const initialState = {
   },
   recovered: {
     recoveredTotal: 0,
+    recoveredSpinner: false,
     recoveredList: [],
   },
 }

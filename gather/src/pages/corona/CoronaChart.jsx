@@ -49,7 +49,7 @@ const CoronaChart = ({ cityName, labels, valueList,}) =>{
   };
   return (
     <div className='corona-chart-canvas'>
-      <Line options={options} data={data} height="300"></Line>
+      <Line options={options} data={data}></Line>
     </div>
   )
 }

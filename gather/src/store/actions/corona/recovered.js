@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CLEAR_RECOVERED_LIST, FETCH_RECOVERED_LIST, FETCH_RECOVERED_TOTAL } from "../../constant/corona/variable";
+import { CLEAR_RECOVERED_LIST, FETCH_RECOVERED_LIST, FETCH_RECOVERED_SPINNER, FETCH_RECOVERED_TOTAL } from "../../constant/corona/variable";
 // import dayjs from 'dayjs';
 
 
@@ -32,6 +32,7 @@ export const getRecoveredList = (gubun) =>{
   return async (dispatch, getState) => {
     const url = process.env.REACT_APP_CORONA_API_URL;
     const apiKey = process.env.REACT_APP_CORONA_API_KEY;
+    dispatch(fetchRecoveredSpinner(true))
     try{
       const {data} = await axios.get(url,{
         params:{
@@ -53,6 +54,8 @@ export const getRecoveredList = (gubun) =>{
     }catch(e){
       console.log(e);
       dispatch(clearRecoveredList())
+    }finally{
+      dispatch(fetchRecoveredSpinner(false))
     }
   }
 }
@@ -74,6 +77,13 @@ const fetchRecoveredList = (data) =>{
 const fetchRecoveredTotal = (data) =>{
   return {
     type: FETCH_RECOVERED_TOTAL,
+    data,
+  }
+}
+
+const fetchRecoveredSpinner = (data) =>{
+  return {
+    type: FETCH_RECOVERED_SPINNER,
     data,
   }
 }
