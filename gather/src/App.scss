@@ -53,11 +53,16 @@
       font-weight:900;
       background-color:rgba(255,255,255,0.15);
       margin:0 5px;
+      transition:0.4s all;
       &:first-child{
         margin-left:0;
       }
       &:last-child{
         margin-right:0;
+      }
+      &:hover{
+        color: rgba(173, 17, 212, 1);
+        background-color: #3d3d83;
       }
     }
   }

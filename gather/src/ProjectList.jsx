@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import ProjectItem from "./ProjectItem";
+import { porjectInfo } from "./store/constant/projectList";
 
 
 const ProjectList = () => {
-  const [projectList, setProjectList] = useState([
-    { path: "searchMine", name: "지뢰찾기" },
-    { path: "corona", name: "코로나" },
-  ]);
+  const [projectList] = useState(porjectInfo);
 
   return (
       <div className="project-list p-8">
