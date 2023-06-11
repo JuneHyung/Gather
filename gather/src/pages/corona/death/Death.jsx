@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
-import NoData from "../common/NoData";
-import Spinner from "../common/Spinner";
+import NoData from "../../../components/corona/NoData";
+import Spinner from "../../../components/corona/Spinner";
 
 const Death = () => {
   const { deathTotal, deathList, deathSpinner } = useSelector((state) => state.death);

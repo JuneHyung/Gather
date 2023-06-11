@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./Header";
 import ProjectList from "./ProjectList";
-import TestMatcher from "./pages/TestMatcher";
 import StartPage from "./pages/StartPage";
 import SearchMine from "./pages/searchMine/SearchMine";
 import Corona from "./pages/corona/Corona";
@@ -16,7 +15,6 @@ const Content = () =>{
         <div>
           <Routes>
             <Route path="/" element={<StartPage />} />
-            <Route path="/test/*" element={<TestMatcher />} />
             <Route path="/searchMine" element={<SearchMine />} />
             <Route path="/corona" element={
               <Provider store={coronaStore}>

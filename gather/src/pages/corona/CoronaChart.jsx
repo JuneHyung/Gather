@@ -1,6 +1,6 @@
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend } from "chart.js";
 import { Line } from "react-chartjs-2";
-import NoData from "./common/NoData";
+import NoData from "../../components/corona/NoData";
 import { useSelector } from "react-redux";
 
 ChartJS.defaults.color = "#FFF"; // chart default color 설정

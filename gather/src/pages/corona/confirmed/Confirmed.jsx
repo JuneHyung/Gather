@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDeathList } from "../../../store/actions/corona/death";
 import { getRecoveredList } from "../../../store/actions/corona/recovered";
 
-import NoData from "../common/NoData";
+import NoData from "../../../components/corona/NoData";
 import ConfirmedTotal from "./ConfirmedTotal";
 import LastUpdatedTime from "./LastUpdatedTime";
-import Spinner from "../common/Spinner";
+import Spinner from "../../../components/corona/Spinner";
 
 const Confirmed = () => {
   const { confirmedList, confirmedSpinner } = useSelector((state) => state.confirmed);
