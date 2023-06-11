@@ -206,7 +206,19 @@ header > h1 {
   /* chart */
   .chart-container {
     margin-top: 1rem;
-    height: 372px;
+    width:100%;
+    height:356px;
+
+    display:flex;
+    justify-content: center;
+    
+    .corona-chart-canvas{
+      display:flex;
+      justify-content: center;
+      flex:1;
+      background-color: #5b5656;
+      color:#fff;
+    }
   }
 }
 .deaths {
@@ -214,46 +226,4 @@ header > h1 {
 }
 .recovered {
   color: #7fcd91;
-}
-/* spinner */
-.spinner-wrapper {
-  height: 100%;
-}
-.ripple-spinner {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.ripple-spinner div {
-  position: absolute;
-  border: 4px solid #fff;
-  border-radius: 50%;
-  opacity: 1;
-  animation: ripple-spinner 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-}
-.ripple-spinner div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-@keyframes ripple-spinner {
-  0% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 1;
-  }
-  100% {
-    top: 0px;
-    left: 0px;
-    width: 72px;
-    height: 72px;
-    opacity: 0;
-  }
-}
-
-
-.corona-chart-canvas{
-  background-color: #5b5656;
-  color:#fff;
 }
