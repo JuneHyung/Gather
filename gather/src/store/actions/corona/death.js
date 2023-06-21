@@ -26,13 +26,13 @@ const parseXML = async (xmlData) => {
     }
     result.push(tmp);
   }
+  result.sort((a,b)=> b.defCnt-a.defCnt)
   return result
 }
 
 const makeChartData = (list) =>{
-  const keys = list.map(el=>el.stdDay);
-  const values = list.map(el=>el.deathCnt);
-  
+  const keys = list.map(el=>el.stdDay).reverse();
+  const values = list.map(el=>el.deathCnt).reverse();
   const result = {name: list[0].gubun, labels: keys, valueList: values}
   return result;
 }
@@ -51,6 +51,7 @@ export const getDeathList = (gubun) =>{
           numOfRows:10
         }
       });
+
       const parsedData = await parseXML(data);
       dispatch(fetchDeathList(parsedData));
       dispatch(fetchDeathTotal(parsedData[0].defCnt));

@@ -98,10 +98,11 @@ header > h1 {
       height: 540px;
       overflow: hidden;
       overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      position:relative;
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: center;
+      // align-items: center;
     }
   }
   .last-updated-time {
@@ -147,21 +148,19 @@ header > h1 {
   margin-left: 1rem;
   width: 66%;
   .deaths-container {
-    background-color: #5b5656;
-    width: 100%;
     height: 440px;
-    text-align: center;
   }
-
+  
   .recovered-container {
     margin-left: 1rem;
-    background-color: #5b5656;
-    width: 100%;
-    text-align: center;
   }
-
+  
   .deaths-container,
   .recovered-container {
+    background-color: #5b5656;
+    width: 100%;
+    text-align: center;  
+    position:relative;
     .summary-title {
       padding: 0.5rem 0;
       font-size: 1.25rem;
@@ -256,7 +255,11 @@ header > h1 {
   border-top: 10px solid #383636; /* Black */
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
-  // position:absolute;
+  position:absolute;
+  top:50%;
+  margin-top:-25px;
+  left:50%;
+  margin-left: -25px;
 }
 
 .refresh-button{
