@@ -8,7 +8,7 @@ const parseXML = async (xmlData) => {
   const xmlDoc = parser.parseFromString(xmlData, 'text/xml');
   const itemList = xmlDoc.getElementsByTagName('item');
   const result = []; // 리턴할 결과값
-
+  
   for(let i=0;i<itemList.length;i++){ // itemList를 돌면서 파싱
     const tmp = {};
     const el = itemList[i];
@@ -25,7 +25,7 @@ const parseXML = async (xmlData) => {
     }
     result.push(tmp);
   }
-  if(result.length!==0) result.sort((a,b)=>b.defCnt - a.defCnt);
+if(result.length!==0) result.sort((a,b)=>b.defCnt - a.defCnt);
   return result;
 }
 
@@ -36,8 +36,8 @@ export const getConfirmedCountry = () =>{
     dispatch(fetchConfirmedSpinner(true));
     try{
       const curHour = dayjs().hour();
-      const std_day = curHour >12 ? dayjs().format('YYYY-MM-DD') : dayjs().subtract(1, 'd').format('YYYY-MM-DD')
-      // const std_day = '2023-05-31'
+      const std_day = curHour >18 ? dayjs().format('YYYY-MM-DD') : dayjs().subtract(1, 'd').format('YYYY-MM-DD')
+      // const std_day = '2023-06-19'
       const {data} = await axios.get(url,{
         params:{
           serviceKey: apiKey,
@@ -47,11 +47,10 @@ export const getConfirmedCountry = () =>{
       });
       
       const parsedData = await parseXML(data);
-      
       if(parsedData.length!==0){
         const totalItem = parsedData.filter(el=>el.gubun==='합계')[0];
         const totalItemIdx = parsedData.indexOf(totalItem);
-        parsedData.splice(totalItemIdx, 1);
+        if(totalItemIdx!==-1) parsedData.splice(totalItemIdx, 1);
         
         dispatch(fetchConfirmList(parsedData));
         dispatch(fetchConfirmedTotal(totalItem.defCnt))

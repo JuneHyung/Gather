@@ -25,6 +25,7 @@ const parseXML = async (xmlData) => {
     }
     result.push(tmp);
   }
+  result.sort((a,b)=>b.defCnt - a.defCnt)
   return result
 }
 
