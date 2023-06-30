@@ -4,6 +4,7 @@ import ProjectList from "./ProjectList";
 import StartPage from "./pages/StartPage";
 import SearchMine from "./pages/searchMine/SearchMine";
 import Corona from "./pages/corona/Corona";
+import CanvasChart from "./pages/canvas/CanvasChart";
 import { Provider } from "react-redux";
 import coronaStore from "./store/output/corona/store";
 const Content = () =>{
@@ -20,7 +21,8 @@ const Content = () =>{
               <Provider store={coronaStore}>
                 <Corona />
               </Provider>
-            } />
+          } />
+            <Route path="/canvasChart" element={<CanvasChart />} />
           </Routes>
         </div>
       </BrowserRouter>

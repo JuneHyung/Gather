@@ -36,8 +36,8 @@ export const getConfirmedCountry = () =>{
     dispatch(fetchConfirmedSpinner(true));
     try{
       const curHour = dayjs().hour();
-      const std_day = curHour >18 ? dayjs().format('YYYY-MM-DD') : dayjs().subtract(1, 'd').format('YYYY-MM-DD')
-      // const std_day = '2023-06-19'
+      // const std_day = curHour >18 ? dayjs().format('YYYY-MM-DD') : dayjs().subtract(1, 'd').format('YYYY-MM-DD')
+      const std_day = '2023-06-19'
       const {data} = await axios.get(url,{
         params:{
           serviceKey: apiKey,

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { porjectInfo } from "../store/constant/projectList";
+import { projectInfo } from "../store/constant/projectList";
 import { Link } from "react-router-dom";
 
 const StartPage = () => {
-  const [projectList] = useState(porjectInfo);
+  const [projectList] = useState(projectInfo);
 
   return (
     <div className="start-page">
