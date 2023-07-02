@@ -27,14 +27,13 @@ const LineChart = ({data}) =>{
         const allChartData = new Set(datasets.map(el=>el.data).flat(Infinity));
         const maxD = Math.max(...allChartData)
         const minD = Math.min(...allChartData)
-
-        const step = 5;
-        const start = minD - (minD % 5);
-        const end = maxD - (maxD % 5) + step;
         
-        const len = Math.ceil((end - start) / 5) + 1;
-
-        const arr = Array.from({ length: len }, (_, i) => start + i * step);
+        const start = minD<0 ? minD - (10 + (minD % 10)) : minD > 0 ? 0 : minD - minD%10;
+        const end = maxD - (maxD % 10) + 10 ;
+        const len = chartData.step===undefined || chartData.step <3 ? 3 : chartData.step;
+        
+        const step = Math.floor((Math.abs(end) + Math.abs(start)) / (len-1)) + (5-(Math.floor((Math.abs(end) + Math.abs(start)) / (len-1)) % 5))
+        const arr = Array.from({length: len}, (_, i)=>start + i*step);
         canvas.height = len * gap;
         return arr;
       };
