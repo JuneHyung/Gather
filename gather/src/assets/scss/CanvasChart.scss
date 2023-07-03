@@ -7,31 +7,27 @@
   .canvas-chart-content-wrap{
     display:flex;
     flex-direction:column;
-    .top-box, .bottom-box{
+    .canvas-chart-content-item{
       display:flex;
-      flex-direction: column;
-      flex:1; 
-      padding: 0.3rem;
-    }
-    
-    .top-box{
-      #custom-chart{
-        // width:400px;
-        // height:300px;
-        color:white;
-        // display:flex;
-        // flex:1;
-        // background-color:#818181;
-      }
-    }
-    .bottom-box{
-      .chartjs-box{
+      .top-box, .bottom-box{
         display:flex;
-        flex:1;
-        background-color:lightblue;
+        flex-direction: column;
+        flex:1; 
+        padding: 0.3rem;
+      }
+      
+      .top-box{
+        #custom-chart{
+          color:white;
+        }
+      }
+      .bottom-box{
+        .chartjs-box{
+          display:flex;
+          flex:1;
+          background-color:lightblue;
+        }
       }
     }
   }
-
- 
 }

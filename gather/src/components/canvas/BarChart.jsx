@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const LineChart = ({ data }) => {
+const BarChart = ({ data }) => {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -67,13 +67,13 @@ const LineChart = ({ data }) => {
 
       // xLabels 구하기
       const drawXLabels = (ctx, startX, endX, Y) => {
-        xGap = (endX - startX) / (xAxis.length - 1);
+        xGap = (endX - startX) / (xAxis.length);
         xAxis.forEach((label, index) => {
           const x = startX + xGap * index;
           ctx.fillStyle = "#FFFFFF";
           ctx.font = "0.8rem malgaun gothic";
           const fontLen = label.length * 4;
-          ctx.fillText(label, x - fontLen, Y + 20);
+          ctx.fillText(label, x , Y + 20);
         });
       };
 
@@ -106,7 +106,7 @@ const LineChart = ({ data }) => {
           drawXLines(ctx, xAxisStartX, xAxisEndX, xAxisY);
           xAxisY -= yGap;
         }
-        for (let i = 0; i < ylen; i++) {
+        for (let i = 0; i <= ylen; i++) {
           drawYLines(ctx, yAxisStartY, yAxisEndY, yAxisX);
           yAxisX += xGap;
         }
@@ -115,44 +115,29 @@ const LineChart = ({ data }) => {
       drawAxis();
       // ------------------------------------------------------------------------------------------
       const drawDataLine = (idx) => {
+        const barWidth = 16;
         // x축 정보
-        const xStart = 50; // X축 시작 위치
-        // const xEnd = canvas.width - gap; // X축 끝 위치
-        // const xRange = xEnd - xStart; // X축 범위
-        // const xStep = xRange / (xAxis.length - 1); // X축 간격
-
+        let xStart = 50 + idx*barWidth; // X축 시작 위치
         // y축정보
         const yStart = canvas.height - gap; // Y축 시작 위치
         const yEnd = 50; // Y축 끝 위치
         const yRange = yStart - yEnd; // Y축 범위
         const yStep = yRange / (Math.max(...yAxis) - Math.min(...yAxis)); // Y축 간격
 
-        ctx.moveTo(xStart, yStart); // 시작점
-        ctx.beginPath(); // line 시작
         for (let i = 0; i < xAxis.length; i++) {
-          let x = xStart + i * xGap; // X 좌표 계산
+          ctx.moveTo(xStart, yStart); // 시작점
+          let x = xStart + (i*xGap); // X 좌표 계산
           let y = yStart - (datasets[idx].data[i] - Math.min(...yAxis)) * yStep; // Y 좌표 계산
-          
-          ctx.lineTo(x, y); // 점에 연결
-          ctx.lineWidth = 3;
-          ctx.strokeStyle = datasets[idx].borderColor;
+          const height = canvas.height - y -50;
           ctx.fillStyle = datasets[idx].backgroundColor;
-          ctx.lineJoin = "round";
-          ctx.stroke(); // 선 그리기
           
-
-          // 꺾이는 부분 점.
-          ctx.beginPath();
-          ctx.arc(x, y, 3, 0, Math.PI * 2);
-          ctx.fillStyle = datasets[idx].backgroundColor;
-          ctx.fill();
+          ctx.fillRect(x , y, barWidth, height)
 
           // 점위에 글자
-          ctx.font = "0.8rem malgaun gothic";
+          ctx.font = "0.7rem malgaun gothic";
           ctx.fillStyle = "#fff";
-          const fontLen = datasets[0].data[i].toString().length * 4;
-          ctx.fillText(datasets[idx].data[i], x - fontLen, y - 10); // 데이터 값 텍스트 표시
-
+          const fontLen = datasets[0].data[i].toString().length * 2;
+          ctx.fillText(datasets[idx].data[i], x, y - 10); // 데이터 값 텍스트 표시
         }
       };
 
@@ -167,10 +152,11 @@ const LineChart = ({ data }) => {
 
   return (
     <div ref={containerRef} id="container-box" className="top-box">
-      <h2>Line Canvas Chart</h2>
+      <h2>Bar Canvas Chart</h2>
       <canvas ref={canvasRef} id="custom-chart"></canvas>
     </div>
   );
 };
 
-export default LineChart;
+
+export default BarChart;

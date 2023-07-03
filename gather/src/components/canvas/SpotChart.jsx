@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const LineChart = ({ data }) => {
+const SpotChart = ({ data }) => {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -102,14 +102,16 @@ const LineChart = ({ data }) => {
         const ylen = xAxis.length;
         drawYLabels(ctx, yAxisStartY, yAxisEndY, yAxisX);
 
-        for (let i = 0; i < xlen; i++) {
-          drawXLines(ctx, xAxisStartX, xAxisEndX, xAxisY);
-          xAxisY -= yGap;
-        }
-        for (let i = 0; i < ylen; i++) {
-          drawYLines(ctx, yAxisStartY, yAxisEndY, yAxisX);
-          yAxisX += xGap;
-        }
+        drawXLines(ctx, xAxisStartX, xAxisEndX, xAxisY);
+        drawYLines(ctx, yAxisStartY, yAxisEndY, yAxisX);
+        // for (let i = 0; i < xlen; i++) {
+        //   drawXLines(ctx, xAxisStartX, xAxisEndX, xAxisY);
+        //   xAxisY -= yGap;
+        // }
+        // for (let i = 0; i < ylen; i++) {
+        //   drawYLines(ctx, yAxisStartY, yAxisEndY, yAxisX);
+        //   yAxisX += xGap;
+        // }
       };
 
       drawAxis();
@@ -132,20 +134,6 @@ const LineChart = ({ data }) => {
         for (let i = 0; i < xAxis.length; i++) {
           let x = xStart + i * xGap; // X 좌표 계산
           let y = yStart - (datasets[idx].data[i] - Math.min(...yAxis)) * yStep; // Y 좌표 계산
-          
-          ctx.lineTo(x, y); // 점에 연결
-          ctx.lineWidth = 3;
-          ctx.strokeStyle = datasets[idx].borderColor;
-          ctx.fillStyle = datasets[idx].backgroundColor;
-          ctx.lineJoin = "round";
-          ctx.stroke(); // 선 그리기
-          
-
-          // 꺾이는 부분 점.
-          ctx.beginPath();
-          ctx.arc(x, y, 3, 0, Math.PI * 2);
-          ctx.fillStyle = datasets[idx].backgroundColor;
-          ctx.fill();
 
           // 점위에 글자
           ctx.font = "0.8rem malgaun gothic";
@@ -153,6 +141,11 @@ const LineChart = ({ data }) => {
           const fontLen = datasets[0].data[i].toString().length * 4;
           ctx.fillText(datasets[idx].data[i], x - fontLen, y - 10); // 데이터 값 텍스트 표시
 
+          // 꺾이는 부분 점.
+          ctx.beginPath();
+          ctx.arc(x, y, 4, 0, Math.PI * 2);
+          ctx.fillStyle = datasets[idx].backgroundColor;
+          ctx.fill();
         }
       };
 
@@ -167,10 +160,10 @@ const LineChart = ({ data }) => {
 
   return (
     <div ref={containerRef} id="container-box" className="top-box">
-      <h2>Line Canvas Chart</h2>
+      <h2>Spot Canvas Chart</h2>
       <canvas ref={canvasRef} id="custom-chart"></canvas>
     </div>
   );
 };
 
-export default LineChart;
+export default SpotChart;
