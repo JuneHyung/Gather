@@ -2,11 +2,16 @@
 @import './assets/scss/SearchMine.scss';
 @import './assets/scss/Corona.scss';
 @import './assets/scss/CanvasChart.scss';
+@import './assets/scss/Chat.scss';
 .App {
   text-align: center;
   background-color: #282c34;
-  min-height:100vh;
-  
+  display:flex;
+  flex-direction: column;
+  flex:1;
+  height:100vh;
+  padding:1rem;
+
   .app-header{
     display:flex;
     height: 100px;
@@ -34,9 +39,15 @@
   overflow:auto;
 }
 .content-box{
+  display:flex;
+  flex:1;
+  flex-direction:column;
+  height:100%;
   .project-list{
     border:1px solid #fff;
     display:flex;
+    flex:0 0 100px;
+    height:100px;
     justify-content: flex-start;
     box-sizing: border-box;
     .project-item{
@@ -66,6 +77,13 @@
         background-color: #3d3d83;
       }
     }
+  }
+  .content-list{
+    display:flex;
+    height:100%;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
   }
 }
 

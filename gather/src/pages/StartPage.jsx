@@ -10,7 +10,7 @@ const StartPage = () => {
       <h1 className="start-title">Let's Go React</h1>
       <ul className="start-project-list">
         {projectList.map((pInfo, i) => {
-          return <li className="start-project-item"><Link to={`${pInfo.path}`}>{pInfo.name}</Link></li>
+          return <li className="start-project-item" key={pInfo.path+i}><Link to={`${pInfo.path}`}>{pInfo.name}</Link></li>
         })}
       </ul>
     </div>

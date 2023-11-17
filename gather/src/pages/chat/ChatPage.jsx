@@ -1,10 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
-import io from "socket.io-client";
-const socket = io.connect("http://localhost:5000");
+import { disconnectSocket, initSocketConnection, socket } from "../../api/chat/chat";
+
 
 const ChatPage = () => {
   const [state, setState] = useState({ message: "", name: "" });
   const [chat, setChat] = useState([]);
+  
+  useEffect(()=>{
+    initSocketConnection();
+    return () => disconnectSocket();
+  }, [])
 
   useEffect(() => {
     socket.on("message", ({ name, message }) => {
@@ -28,31 +33,25 @@ const ChatPage = () => {
   const renderChat = useCallback(() => {
     // console.log("here?");
     return chat.map(({ name, message }, idx) => (
-      <div key={name + message + idx}>
-        <h3>
-          {name}: <span>{message}</span>
-        </h3>
-      </div>
+      <li key={name + message + idx}>
+          <span className="log-name">{name}</span>  <span className="log-message">{message}</span>
+      </li>
     ));
   },[chat]);
   return (
-    <div>
-      <form onSubmit={onMessageSubmit}>
-        <h1>Message</h1>
-        <div>
-          <label htmlFor="name">Name</label>
-          <input name="name" onChange={onTextChange} value={state.name} />
-        </div>
-        <div>
-          <label htmlFor="message">Message</label>
-          <input name="message" onChange={onTextChange} value={state.message} />
-        </div>
-        <button>Send Message</button>
-      </form>
-      <div>
-        <h1>Chat log</h1>
+    <div className="chat-wrap-box">
+      <ul class="chat-log">
         {renderChat()}
-      </div>
+      </ul>
+      <form onSubmit={onMessageSubmit} className="chat-input-box">
+        <label className="input-box name-input">
+          <input name="name" onChange={onTextChange} value={state.name} placeholder="Name"/>
+        </label>
+        <label className="input-box message-input">
+          <input name="message" onChange={onTextChange} value={state.message} placeholder="Enter Your Message" />
+        </label>
+        <button className="send-button">Send Message</button>
+      </form>
     </div>
   );
 };

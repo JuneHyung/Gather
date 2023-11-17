@@ -14,7 +14,7 @@ const Content = () =>{
       <Header />
       <BrowserRouter>
         <ProjectList />
-        <div>
+        <div className="content-list">
           <Routes>
             <Route path="/" element={<StartPage />} />
             <Route path="/searchMine" element={<SearchMine />} />
