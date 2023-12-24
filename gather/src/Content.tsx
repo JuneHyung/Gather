@@ -8,6 +8,7 @@ import CanvasChart from "./pages/canvas/CanvasChart";
 import Chat from "./pages/chat/ChatPage";
 import { Provider } from "react-redux";
 import coronaStore from "./store/output/corona/store";
+import Maple from "./pages/maple/Maple";
 const Content = () =>{
   return (
     <div className="content-box">
@@ -25,6 +26,7 @@ const Content = () =>{
           } />
             <Route path="/canvasChart" element={<CanvasChart />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/maple" element={<Maple />} />
           </Routes>
         </div>
       </BrowserRouter>

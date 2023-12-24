@@ -1,0 +1,17 @@
+.maple-page{
+  text-align: left;
+  .maple-info-box{
+    display: flex;
+    .basic-info-list, .stat-info-list, .hyper-stat-info-list{
+      display:flex;
+      flex-direction: column;
+      flex:1;
+      margin: 10px 0;
+      h1{
+        font-size:24px;
+        margin-bottom:4px;
+      }
+    }
+
+  }
+}
