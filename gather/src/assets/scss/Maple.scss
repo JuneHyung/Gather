@@ -1,17 +1,144 @@
+$maple-point-color: #f68500;
+$legend-color : #5cb85c;
+$unique-color : #f6a730;
+$epic-color : #6d62a1;
+$rare-color : #5393ca;
+$star-force-color: #f6a730;
+$star-force-bg-color: rgba(255, 248, 232, 0.3);
+$text-low-color: #9197b1;
+$text-middle-color: #848999;
+.rank-legend{color: $legend-color}
+.rank-unique{color: $unique-color}
+.rank-epic{color: $epic-color}
+.rank-rare{color: $rare-color}
+.star-force{color: $star-force-color;}
+.item-name{color:$text-low-color;}
+
+
+
+
+*{
+  &::-webkit-scrollbar {
+    width:0.4rem;
+    border-radius: 1.25rem;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 1.25rem;
+    width:0.4rem;
+    background-color: $star-force-bg-color;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1.25rem;
+    width:0.4rem;
+    background-color: $unique-color;
+  }
+}
+
+
 .maple-page{
+  display:flex;
+  flex-direction: column;
   text-align: left;
   .maple-info-box{
     display: flex;
-    .basic-info-list, .stat-info-list, .hyper-stat-info-list{
-      display:flex;
-      flex-direction: column;
-      flex:1;
-      margin: 10px 0;
-      h1{
-        font-size:24px;
-        margin-bottom:4px;
+    min-width:100%;
+    justify-content: space-between;
+    .info-wrap{
+      height:900px;
+      overflow:auto;
+      .basic-info-list, .stat-info-list, .hyper-stat-info-list, .union-info-list, .equipment-info-list{
+        display:flex;
+        flex-direction: column;
+        flex:1;
+        margin: 10px 0;
+      }
+      .basic-info-list{
+        .basic-info-content{
+          padding:8px 0;
+          display:flex;
+          flex-direction: column;
+          .basic-img-wrap{
+            display:flex;
+            align-items: center;
+            margin-bottom:0.25rem;
+            .character-icon{
+              display:flex;
+              justify-content: center;
+              align-items: center;
+              min-width: 100px;
+            }
+            
+            .character-description{
+              display:flex;
+              flex-direction: column;
+              .character-info-item{
+                margin: 4px;
+                &:first-child{margin-top:0;}
+                &:last-child{margin-bottom:0}
+              }
+            }
+          }
+        }
+      }
+
+      .ability-info-list{
+        .ability-info-content{
+          padding:8px 0;
+          display:flex;
+          flex-direction: column;
+          .ability-info-item{
+            margin:4px;
+          }
+        }
+      }
+
+      .equipment-info-list{
+        display:flex;
+        overflow:auto;
+        flex:2;
+        .equipment-info-item{
+          display:flex;
+          margin:8px 0;
+          justify-content: space-between;
+          align-items: center;
+          background-color: rgba(255,255,255,0.1);
+          border-radius:8px;
+          padding:8px;
+          &:first-child{
+            margin-top:0;
+          }
+          .equipment-img-wrap{
+            display:flex;
+            align-items: center;
+            .equipment-icon{
+              display:flex;
+              justify-content: center;
+              min-width:38px;
+              img{
+                display:block;
+              }
+            }
+            .equipment-description{
+              display:flex;
+              flex-direction: column;
+              margin-left:8px;
+              p{margin:4px;}
+            }
+          }
+          .item-potential-option-list{
+  
+            margin-left:8px;
+          }
+        }
+  
       }
     }
-
+  }
+  h1{
+    font-size:24px;
+    font-weight:800;
+    padding: 0.25rem 0;
+    border-bottom:2px solid $maple-point-color;
+    
   }
 }

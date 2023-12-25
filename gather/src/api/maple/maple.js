@@ -107,3 +107,18 @@ export const getCharacterUnionRaider = async (ocid) => {
   return data;
 }
 
+// 장착장비 조회
+export const getChracterEquipment = async (ocid) => {
+  const {data} = await axios.get(`${baseUrl}/character/item-equipment`, {
+    params:{
+      ocid,
+      date: baseDay
+    },
+    headers:{
+      "x-nxopen-api-key": apiKey,
+      "accept": "application/json"
+    }
+  })
+  return data;
+}
+

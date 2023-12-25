@@ -32,7 +32,7 @@ const UnionInfo = ({ ocid }) => {
   },[getUnionInfo, getUnionRaiderInfo, ocid])
   
   return (
-    <ul className="hyper-stat-info-list">
+    <ul className="union-info-list">
       <h1>유니온</h1>
       {
         unionInfo.hasOwnProperty("union_level") 

@@ -1,57 +1,68 @@
 import { useCallback, useState } from "react";
-import { getCharacterAbility, getCharacterBasic, getCharacterHyperStat, getCharacterOCID, getCharacterStat, getCharacterUnion, getCharacterUnionRaider } from "../../api/maple/maple";
+import { getCharacterOCID } from "../../api/maple/maple";
 import BasicInfo from "./BasicInfo";
 import StatInfo from "./StatInfo";
 import HyperStatInfo from "./HyperStatinfo";
 import UnionInfo from "./UnionInfo";
+import AbilityInfo from "./AbilityInfo";
+import EquipmentInfo from "./EquipmentInfo";
 
 const Maple = () => {
-  const [characterName, setCharacterName] = useState('');
-  const [ocid, setOcid] = useState('')
+  const [characterName, setCharacterName] = useState("이깅우");
+  const [ocid, setOcid] = useState("");
 
   const handleOnChange = useCallback((e) => {
     const { value } = e.target;
     setCharacterName(value);
-  },[])
+  }, []);
 
-  const handleOnClick = useCallback(async ()=>{
-    try{
-      const {ocid} = await getCharacterOCID(characterName);
-      if(ocid){
+  const handleOnClick = useCallback(async () => {
+    try {
+      const { ocid } = await getCharacterOCID(characterName);
+      if (ocid) {
         setOcid(ocid);
-      }else{
-        setOcid('');
+      } else {
+        setOcid("");
       }
-    }catch(e){
-      setOcid('');
-      const {error} = e.response.data;
+    } catch (e) {
+      setOcid("");
+      const { error } = e.response.data;
       alert(error.message);
     }
-  }, [characterName ])
+  }, [characterName]);
 
   return (
     <div className="maple-page">
       <div className="maple-search-bar">
-        <input type="text" onChange={handleOnChange} className="maple-search-input"/>
-        <button onClick={handleOnClick} className="maple-search-button"> Search </button>
+        <input type="text" onChange={handleOnChange} className="maple-search-input" />
+        <button onClick={handleOnClick} className="maple-search-button">
+          Search{" "}
+        </button>
       </div>
       <div className="maple-info-box">
-      {
-        ocid.length===0 ? <div>No Data</div> 
-        : 
-        <>
-          <BasicInfo ocid={ocid}/>
-          <hr />
-          <StatInfo  ocid={ocid} />
-          <hr />
-          <HyperStatInfo ocid={ocid}/>
-          <hr />
-          <UnionInfo ocid={ocid} />
-        </>
-      }
+        {ocid.length === 0 ? (
+          <div>No Data</div>
+        ) : (
+          <>
+            <div className="info-wrap">
+              <BasicInfo ocid={ocid} />
+              <AbilityInfo ocid={ocid} />
+            </div>
+            <div className="info-wrap">
+              <StatInfo ocid={ocid} />
+              {/* <HyperStatInfo ocid={ocid} /> */}
+            </div>
+            <div className="info-wrap">
+              <EquipmentInfo ocid={ocid} />
+            </div>
+            <div className="info-wrap">
+              <UnionInfo ocid={ocid} />
+            </div>
+          </>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Maple;
