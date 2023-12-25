@@ -12,3 +12,15 @@ export const divideGrade = (grade)=>{
     default: return 'rank-rare';
   }
 }
+
+export const divideCharacterType = (val) => {
+  switch(val){
+    case '전사' : return 'warrior-block';
+    case '궁수' : return 'archer-block';
+    case '마법사' : return 'wizard-block';
+    case '도적' : return 'thief-block';
+    case '해적' : return 'pirate-block';
+    default: return 'other-block';
+  }
+
+}

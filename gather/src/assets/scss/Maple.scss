@@ -1,144 +1,264 @@
 $maple-point-color: #f68500;
-$legend-color : #5cb85c;
-$unique-color : #f6a730;
-$epic-color : #6d62a1;
-$rare-color : #5393ca;
+$legend-color: #5cb85c;
+$unique-color: #f6a730;
+$epic-color: #6d62a1;
+$rare-color: #5393ca;
 $star-force-color: #f6a730;
 $star-force-bg-color: rgba(255, 248, 232, 0.3);
 $text-low-color: #9197b1;
 $text-middle-color: #848999;
-.rank-legend{color: $legend-color}
-.rank-unique{color: $unique-color}
-.rank-epic{color: $epic-color}
-.rank-rare{color: $rare-color}
-.star-force{color: $star-force-color;}
-.item-name{color:$text-low-color;}
 
+$warrior-color: rgb(198, 42, 91);
+$archer-color: rgb(143, 175, 68);
+$wizard-color: rgb(46, 151, 173);
+$thief-color: rgb(154, 101, 170);
+$pirate-color: rgb(187, 186, 187);
 
+.rank-legend {
+  color: $legend-color;
+}
+.rank-unique {
+  color: $unique-color;
+}
+.rank-epic {
+  color: $epic-color;
+}
+.rank-rare {
+  color: $rare-color;
+}
+.star-force {
+  color: $star-force-color;
+}
+.item-name {
+  color: $text-low-color;
+}
 
-
-*{
+* {
   &::-webkit-scrollbar {
-    width:0.4rem;
+    width: 0.4rem;
     border-radius: 1.25rem;
   }
   &::-webkit-scrollbar-track {
     border-radius: 1.25rem;
-    width:0.4rem;
+    width: 0.4rem;
     background-color: $star-force-bg-color;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 1.25rem;
-    width:0.4rem;
+    width: 0.4rem;
     background-color: $unique-color;
   }
 }
 
-
-.maple-page{
-  display:flex;
+.maple-page {
+  display: flex;
   flex-direction: column;
   text-align: left;
-  .maple-info-box{
+  margin-top: 20px;
+  .maple-search-bar {
     display: flex;
-    min-width:100%;
+    height: 40px;
+    margin-bottom: 20px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    .maple-search-input {
+      display: flex;
+      flex: 1;
+      padding: 8px;
+      color: #121212;
+      font-weight: 900;
+      &:focus {
+        outline: 2px solid $maple-point-color;
+      }
+    }
+    .maple-search-button {
+      background-color: $maple-point-color;
+      font-weight: 900;
+      padding: 0.3rem;
+      transition: all 0.4s;
+      &:hover {
+        background-color: $warrior-color;
+      }
+    }
+  }
+  .maple-info-box {
+    display: flex;
+    min-width: 100%;
     justify-content: space-between;
-    .info-wrap{
-      height:900px;
-      overflow:auto;
-      .basic-info-list, .stat-info-list, .hyper-stat-info-list, .union-info-list, .equipment-info-list{
-        display:flex;
+    .info-wrap {
+      height: 880px;
+      padding: 0 8px 0 0;
+      overflow-x:hidden;
+      overflow-y: auto;
+      .basic-info-list,
+      .stat-info-list,
+      .hyper-stat-info-list,
+      .union-info-list,
+      .equipment-info-list {
+        display: flex;
         flex-direction: column;
-        flex:1;
+        flex: 1;
         margin: 10px 0;
       }
-      .basic-info-list{
-        .basic-info-content{
-          padding:8px 0;
-          display:flex;
+      .basic-info-list {
+        .basic-info-content {
+          padding: 8px 0;
+          display: flex;
           flex-direction: column;
-          .basic-img-wrap{
-            display:flex;
+          .basic-img-wrap {
+            display: flex;
             align-items: center;
-            margin-bottom:0.25rem;
-            .character-icon{
-              display:flex;
+            margin-bottom: 0.25rem;
+            .character-icon {
+              display: flex;
               justify-content: center;
               align-items: center;
               min-width: 100px;
             }
-            
-            .character-description{
-              display:flex;
+
+            .character-description {
+              display: flex;
               flex-direction: column;
-              .character-info-item{
+              .character-info-item {
                 margin: 4px;
-                &:first-child{margin-top:0;}
-                &:last-child{margin-bottom:0}
+                &:first-child {
+                  margin-top: 0;
+                }
+                &:last-child {
+                  margin-bottom: 0;
+                }
               }
             }
           }
         }
       }
 
-      .ability-info-list{
-        .ability-info-content{
-          padding:8px 0;
-          display:flex;
+      .ability-info-list {
+        .ability-info-content {
+          padding: 8px 0;
+          display: flex;
           flex-direction: column;
-          .ability-info-item{
-            margin:4px;
+          .ability-info-item {
+            margin: 4px;
           }
         }
       }
 
-      .equipment-info-list{
-        display:flex;
-        overflow:auto;
-        flex:2;
-        .equipment-info-item{
-          display:flex;
-          margin:8px 0;
+      .stat-info-list {
+        width: 300px;
+        .stat-info-content {
+          padding: 8px 0;
+          display: flex;
+          flex-direction: column;
+          .stat-info-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 4px 0;
+            .stat-name {
+              color: $text-low-color;
+            }
+            .stat-value {
+              color: $text-middle-color;
+            }
+          }
+        }
+      }
+
+      .union-info-list {
+        width: 400px;
+        .union-info-content {
+          padding: 8px 0;
+          display: flex;
+          flex-direction: column;
+          .union-info-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 4px 0;
+            color: $text-middle-color;
+            .union-block-type {
+              margin-right: 4px;
+            }
+            .union-block-class {
+              color: $text-low-color;
+            }
+            .union-info-name {
+              color: $text-low-color;
+            }
+            .union-info-value {
+              color: $text-middle-color;
+            }
+
+            .warrior-block {
+              color: $warrior-color;
+            }
+            .archer-block {
+              color: $archer-color;
+            }
+            .wizard-block {
+              color: $wizard-color;
+            }
+            .thief-block {
+              color: $thief-color;
+            }
+            .pirate-block {
+              color: $pirate-color;
+            }
+            .other-block {
+              color: $maple-point-color;
+            }
+          }
+        }
+      }
+
+      .equipment-info-list {
+        display: flex;
+        overflow: auto;
+        flex: 2;
+        .equipment-info-item {
+          display: flex;
+          margin: 8px 0;
           justify-content: space-between;
           align-items: center;
-          background-color: rgba(255,255,255,0.1);
-          border-radius:8px;
-          padding:8px;
-          &:first-child{
-            margin-top:0;
+          background-color: rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          padding: 8px;
+          transition:all 0.4s;
+          cursor: pointer;
+          &:hover{ background-color:rgba(255, 255, 255, 0.2);}
+          &:first-child {
+            margin-top: 0;
           }
-          .equipment-img-wrap{
-            display:flex;
+          .equipment-img-wrap {
+            display: flex;
             align-items: center;
-            .equipment-icon{
-              display:flex;
+            .equipment-icon {
+              display: flex;
               justify-content: center;
-              min-width:38px;
-              img{
-                display:block;
+              min-width: 38px;
+              img {
+                display: block;
               }
             }
-            .equipment-description{
-              display:flex;
+            .equipment-description {
+              display: flex;
               flex-direction: column;
-              margin-left:8px;
-              p{margin:4px;}
+              margin-left: 8px;
+              p {
+                margin: 4px;
+              }
             }
           }
-          .item-potential-option-list{
-  
-            margin-left:8px;
+          .item-potential-option-list {
+            margin-left: 8px;
           }
         }
-  
       }
     }
   }
-  h1{
-    font-size:24px;
-    font-weight:800;
+  h1 {
+    font-size: 24px;
+    font-weight: 800;
     padding: 0.25rem 0;
-    border-bottom:2px solid $maple-point-color;
-    
+    border-bottom: 2px solid $maple-point-color;
   }
 }

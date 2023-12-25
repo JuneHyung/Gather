@@ -1,78 +1,114 @@
 import { useCallback, useEffect, useState } from "react";
 import { getCharacterUnion, getCharacterUnionRaider } from "../../api/maple/maple";
+import { divideCharacterType } from "../../api/maple/util";
 
 const UnionInfo = ({ ocid }) => {
   const [unionInfo, setUnionInfo] = useState({});
   const [unionRaiderInfo, setUnionRaiderInfo] = useState({});
-  const getUnionInfo = useCallback(async (targetOcid)=>{
-    try{
+  const getUnionInfo = useCallback(async (targetOcid) => {
+    try {
       const info = await getCharacterUnion(targetOcid);
-      setUnionInfo(info)
-    }catch(e){
+      setUnionInfo(info);
+    } catch (e) {
       setUnionInfo({});
-      const {error} = e.response.data;
+      const { error } = e.response.data;
       alert(error.message);
     }
-  }, [])
+  }, []);
 
-  const getUnionRaiderInfo = useCallback(async (targetOcid)=>{
-    try{
+  const getUnionRaiderInfo = useCallback(async (targetOcid) => {
+    try {
       const info = await getCharacterUnionRaider(targetOcid);
-      setUnionRaiderInfo(info)
-    }catch(e){
+      setUnionRaiderInfo(info);
+    } catch (e) {
       setUnionRaiderInfo({});
-      const {error} = e.response.data;
+      const { error } = e.response.data;
       alert(error.message);
     }
-  }, [])
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     getUnionInfo(ocid);
     getUnionRaiderInfo(ocid);
-  },[getUnionInfo, getUnionRaiderInfo, ocid])
-  
+  }, [getUnionInfo, getUnionRaiderInfo, ocid]);
+
   return (
-    <ul className="union-info-list">
-      <h1>유니온</h1>
-      {
-        unionInfo.hasOwnProperty("union_level") 
-        ? <><li>유니온 레벨 : {unionInfo.union_level}</li>
-        <li>유니온 등급 : {unionInfo.union_grade}</li></>
-        : <li>없음</li>
-      }
+    <>
+      <div className="union-info-list">
+        <h1>유니온</h1>
+        <ul className="union-info-content">
+          {unionInfo.hasOwnProperty("union_level") ? (
+            <>
+              <li className="union-info-item">
+                <span className="union-info-name">유니온 레벨 </span> <span className="union-info-value">{unionInfo.union_level} </span>
+              </li>
+              <li className="union-info-item">
+                <span className="union-info-name"> 유니온 등급 </span> <span className="union-info-value">{unionInfo.union_grade}</span>
+              </li>
+            </>
+          ) : (
+            <li>없음</li>
+          )}
+        </ul>
+      </div>
+
+      <div className="union-info-list">
+        <h1 className="union-info-name">유니온 Member</h1>
+        <ul className="union-info-content">
+        {unionRaiderInfo.hasOwnProperty("union_block") && unionRaiderInfo.union_block.length > 0 ? (
+            unionRaiderInfo.union_block.sort((a,b)=> a.block_type > b.block_type ?  1 : -1).map((info, idx) => (
+              <li key={`${info.block_type}${info.block_class}${info.block_level}${idx}`} className="union-info-item">
+                <p>
+                  <span className={`union-block-type ${divideCharacterType(info.block_type)}`}>[{info.block_type}]</span> 
+                  <span className="union-block-class">{info.block_class}</span> 
+                </p>
+                <p className="union-block-level">Lv.{info.block_level}</p>
+              </li>
+            ))
+        ) : (
+          <li> 없음 </li>
+        )}
+        </ul>
+      </div>
+
+      <div className="union-info-list">
+        <h1 className="union-info-name">유니온 공격대원 효과</h1>
+        <ul className="union-info-content">
+          {unionRaiderInfo.hasOwnProperty("union_raider_stat") ? (
+              unionRaiderInfo.union_raider_stat
+                .sort()
+                .reverse()
+                .map((info, idx) => (
+                  <p key={`${info}${idx}`} className="union-info-item union-info-value">
+                    {info}
+                  </p>
+                ))
+          ) : (
+            <li> 없음 </li>
+          )}
+        </ul>
+      </div>
+      <div className="union-info-list">
+        <h1 className="union-info-name">유니온 공격대 점령 효과</h1>
+        <ul className="union-info-content">
+          {unionRaiderInfo.hasOwnProperty("union_occupied_stat") ? (
+            
+              unionRaiderInfo.union_occupied_stat
+                .sort()
+                .reverse()
+                .map((info, idx) => (
+                  <li key={`${info}${idx}`} className="union-info-item union-info-value">
+                    {info}
+                  </li>
+                ))
+          ) : (
+            <li> 없음 </li>
+          )}
+        </ul>
+      </div>
+
       
-      {
-        unionRaiderInfo.hasOwnProperty("union_raider_stat") 
-        ?<li>
-        유니온 공격대원 효과 :
-        {unionRaiderInfo.union_raider_stat.sort().reverse().map((info, idx) => (
-          <p key={`${info}${idx}`}>{info}</p>
-        ))}
-      </li>
-      : <li> 없음 </li> 
-      }
-      <br/>
-      {
-        unionRaiderInfo.hasOwnProperty("union_occupied_stat") 
-        ?<li>
-        유니온 공격대 점령 효과 :
-        {unionRaiderInfo.union_occupied_stat.sort().reverse().map((info, idx) => (
-          <p key={`${info}${idx}`}>{info}</p>
-        ))}
-      </li>
-      : <li> 없음 </li> 
-      }
-      {
-        unionRaiderInfo.hasOwnProperty("union_block") && unionRaiderInfo.union_block.length>0
-        ?<li>
-        <p>Member</p>
-        {unionRaiderInfo.union_block.map((info, idx) => (
-          <p key={`${info.block_type}${info.block_class}${info.block_level}${idx}`}>[{info.block_type}] {info.block_class} Lv.{info.block_level}</p>
-        ))}
-      </li>
-      : <li> 없음 </li> 
-      }
-    </ul>
+    </>
   );
 };
 export default UnionInfo;

@@ -38,7 +38,7 @@ const BasicInfo = ({ ocid }) => {
             <li className="character-info-item">
               Lv. {basicInfo.character_level} {basicInfo.character_exp_rate}% ({divideNumberComma(basicInfo.character_exp)})
             </li>
-            <li className="character-info-item">Guild : {basicInfo.character_guild_name}</li>
+            <li className="character-info-item">{basicInfo.character_guild_name} 길드</li>
           </ul>
         </div>
       </div>

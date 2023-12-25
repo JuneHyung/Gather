@@ -23,7 +23,7 @@ const EquipmentInfo = ({ ocid }) => {
 
   return (
     <ul className="equipment-info-list">
-      <h1>Equipment Info</h1>
+      <h1>장비</h1>
       {equipmentInfo.item_equipment !== undefined
         ? equipmentInfo.item_equipment.map((item) => (
             <li key={item.item_equipment_slot} className="equipment-info-item">

@@ -36,7 +36,7 @@ const Maple = () => {
       <div className="maple-search-bar">
         <input type="text" onChange={handleOnChange} className="maple-search-input" />
         <button onClick={handleOnClick} className="maple-search-button">
-          Search{" "}
+          Search
         </button>
       </div>
       <div className="maple-info-box">

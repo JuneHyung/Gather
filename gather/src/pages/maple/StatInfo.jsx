@@ -22,14 +22,17 @@ const StatInfo = ({ocid}) => {
   },[getStatInfo, ocid])
 
   return (
-    <ul className="stat-info-list">
+    <div className="stat-info-list">
       <h1>스탯</h1>
+      <ul className="stat-info-content">
       {
         statInfo.sort().map((stat)=>
-          <li key={`${stat.stat_name}${stat.stat_value}`}>{stat.stat_name} : {divideNumberComma(stat.stat_value)}</li>
+          <li key={`${stat.stat_name}${stat.stat_value}`} className="stat-info-item">
+            <span className="stat-name">{stat.stat_name} </span> <span className="stat-value"> {divideNumberComma(stat.stat_value)}</span></li>
         )
       }
-    </ul>
+      </ul>
+    </div>
   )
 }
 export default StatInfo;
