@@ -1,4 +1,36 @@
-const UnionInfo = ({ unionInfo, unionRaiderInfo }) => {
+import { useCallback, useEffect, useState } from "react";
+import { getCharacterUnion, getCharacterUnionRaider } from "../../api/maple/maple";
+
+const UnionInfo = ({ ocid }) => {
+  const [unionInfo, setUnionInfo] = useState({});
+  const [unionRaiderInfo, setUnionRaiderInfo] = useState({});
+  const getUnionInfo = useCallback(async (targetOcid)=>{
+    try{
+      const info = await getCharacterUnion(targetOcid);
+      setUnionInfo(info)
+    }catch(e){
+      setUnionInfo({});
+      const {error} = e.response.data;
+      alert(error.message);
+    }
+  }, [])
+
+  const getUnionRaiderInfo = useCallback(async (targetOcid)=>{
+    try{
+      const info = await getCharacterUnionRaider(targetOcid);
+      setUnionRaiderInfo(info)
+    }catch(e){
+      setUnionRaiderInfo({});
+      const {error} = e.response.data;
+      alert(error.message);
+    }
+  }, [])
+
+  useEffect(()=>{
+    getUnionInfo(ocid);
+    getUnionRaiderInfo(ocid);
+  },[getUnionInfo, getUnionRaiderInfo, ocid])
+  
   return (
     <ul className="hyper-stat-info-list">
       <h1>유니온</h1>
