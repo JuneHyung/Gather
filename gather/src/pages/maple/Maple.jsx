@@ -39,10 +39,10 @@ const Maple = () => {
           Search
         </button>
       </div>
-      <div className="maple-info-box">
-        {ocid.length === 0 ? (
-          <div>No Data</div>
-        ) : (
+      {ocid.length===0 
+        ? (<div>No Data</div>) 
+        : <>
+        <div className="maple-info-box">
           <>
             <div className="info-wrap">
               <BasicInfo ocid={ocid} />
@@ -50,17 +50,19 @@ const Maple = () => {
             </div>
             <div className="info-wrap">
               <StatInfo ocid={ocid} />
-              {/* <HyperStatInfo ocid={ocid} /> */}
             </div>
             <div className="info-wrap">
               <EquipmentInfo ocid={ocid} />
             </div>
-            <div className="info-wrap">
+          </>
+      </div>
+            <div>
               <UnionInfo ocid={ocid} />
             </div>
-          </>
-        )}
-      </div>
+        </> 
+        
+        }
+      
     </div>
   );
 };

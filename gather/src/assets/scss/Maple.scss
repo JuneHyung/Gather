@@ -13,7 +13,11 @@ $archer-color: rgb(143, 175, 68);
 $wizard-color: rgb(46, 151, 173);
 $thief-color: rgb(154, 101, 170);
 $pirate-color: rgb(187, 186, 187);
+$hybrid-color: linear-gradient(rgb(187, 186, 187) 0%,rgb(154, 101, 170) 100%); 
 
+$union-table-border-color: rgba(255, 248, 232, 0.1);
+$union-table-bg-color: linear-gradient(rgb(76, 79, 93) 0%, rgb(39, 40, 46) 100%);
+$union-table-active-color: rgb(210, 183, 153);
 .rank-legend {
   color: $legend-color;
 }
@@ -260,5 +264,38 @@ $pirate-color: rgb(187, 186, 187);
     font-weight: 800;
     padding: 0.25rem 0;
     border-bottom: 2px solid $maple-point-color;
+  }
+}
+
+.union-table-wrap{
+  max-width:530px;
+  border: 1px solid #fff;
+  margin: 12px 0; 
+  .union-table{
+    background: $union-table-bg-color;
+    .row{
+      display:flex;
+      .cell{
+        display:flex;
+        box-sizing: border-box;
+        justify-content: center;
+        align-items: center;
+        flex:1;
+        width:24px;height:24px;
+        border:1px solid $union-table-border-color;
+        padding: 0.5rem;
+        color:#dbdbdb;
+      }
+      .active-warrior-cell{background-color: $warrior-color !important;}
+      .active-archer-cell{background-color: $archer-color !important;}
+      .active-wizard-cell{background-color: $wizard-color !important;}
+      .active-thief-cell{background-color: $thief-color !important;}
+      .active-pirate-cell{background-color: $pirate-color !important;}
+      .active-hybrid-cell{background: $hybrid-color;}
+      .active-cell {
+        box-sizing: border-box;
+        background-color:$union-table-active-color;
+      }
+    } 
   }
 }

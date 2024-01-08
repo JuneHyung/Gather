@@ -8,7 +8,6 @@ const EquipmentInfo = ({ ocid }) => {
   const getItemEquipmentInfo = useCallback(async (targetOcid) => {
     try {
       const info = await getChracterEquipment(targetOcid);
-      console.log(info);
       setEquipmentInfo(info);
     } catch (e) {
       setEquipmentInfo({});
