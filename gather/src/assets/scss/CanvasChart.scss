@@ -30,4 +30,19 @@
       }
     }
   }
+  .svg-chart-content-wrap{
+    display:flex;
+    flex-direction:column;
+    .svg-chart-content-item{
+      display:flex;
+      .top-box, .bottom-box{
+        display:flex;
+        flex-direction: column;
+        flex:1; 
+        padding: 0.3rem;
+      }
+      .svg-chart{display:flex;flex:1;}
+      
+    }
+  }
 }

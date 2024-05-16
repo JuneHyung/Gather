@@ -22,5 +22,4 @@ export const divideCharacterType = (val) => {
     case '해적' : return 'pirate-block';
     default: return 'other-block';
   }
-
 }

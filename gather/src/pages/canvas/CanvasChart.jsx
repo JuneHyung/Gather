@@ -2,6 +2,7 @@ import CustomChart from "./CustomChart";
 import LineChart from "../../components/canvas/LineChart";
 import SpotChart from "../../components/canvas/SpotChart";
 import BarChart from "../../components/canvas/BarChart";
+import SvgLineChart from "../../components/svg/SvgLineChart";
 
 const chartData = {
   labels: ["2023-06-22", "2023-06-23", "2023-06-24", "2023-06-25", "2023-06-26", "2023-06-27", "2023-06-28", "2023-06-29"],
@@ -43,6 +44,14 @@ const CanvasChart = () => {
         </div>
       </div>
       <hr />
+      <div className="svg-chart-content-wrap">
+        <div className="svg-chart-content-item">
+          <SvgLineChart data={chartData} />
+          <SvgLineChart data={chartData} />
+          <SvgLineChart data={chartData} />
+          
+        </div>
+      </div>
       {/* <div className="bottom-box">
         <h2>Chart.js</h2>
         <CustomChart className="chartjs-box" labels={labels} valueList={datasets[0].data}></CustomChart>
